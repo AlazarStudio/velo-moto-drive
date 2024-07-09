@@ -1,21 +1,27 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
-import Main_Page from "./Components/Pages/Main_Page";
-import Non_Found_Page from "./Components/Pages/Non_Found_Page";
-import Layout from "./Components/Standart/Layout/Layout";
+import CartPage from './Components/Pages/CartPage/CartPage'
+import CatalogPage from './Components/Pages/CatalogPage/CatalogPage'
+import DeliveryPage from './Components/Pages/DeliveryPage/DeliveryPage'
+import Main from './Components/Pages/MainPage/MainPage'
+import Non_Found_Page from './Components/Pages/Non_Found_Page'
+import Layout from './Components/Standart/Layout/Layout'
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Main_Page />} />
-          <Route path="*" element={<Non_Found_Page />} />
-        </Route>
-      </Routes>
-    </>
-  )
+	return (
+		<>
+			<Routes>
+				<Route path='/' element={<Layout />}>
+					<Route index element={<Main />} />
+					<Route path='/catalog' element={<CatalogPage />} />
+					<Route path='/delivery' element={<DeliveryPage />} />
+					<Route path='/shopping-cart' element={<CartPage />} />
+					<Route path='*' element={<Non_Found_Page />} />
+				</Route>
+			</Routes>
+		</>
+	)
 }
 
 export default App

@@ -1,0 +1,16 @@
+.slider_links {
+  z-index: 999;
+  position: absolute;
+  top: 25%;
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.slider_links li a {
+  font-size: 16px;
+  line-height: 19.5px;
+  font-weight: 700;
+  color: #fff;
+}

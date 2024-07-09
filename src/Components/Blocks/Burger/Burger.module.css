@@ -1,0 +1,9 @@
+.nav {
+  display: flex;
+}
+
+.nav_list {
+  display: flex;
+  align-items: center;
+  gap: 110px;
+}
