@@ -1,0 +1,58 @@
+.popular_products__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: height 0.5s ease-in-out;
+}
+
+.popular_products__header__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.popular_products__btn {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.popular_products__btn a {
+  width: 250px;
+  height: 72px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #000;
+  font-size: 16px;
+  line-height: 19.5px;
+  cursor: pointer;
+}
+
+.popular_products__btn a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.popular_products__title {
+  font-size: 85px;
+  line-height: 100px;
+  font-weight: 700;
+	text-shadow: 
+		-0   -0.5px 0   #000,
+		 0   -0.5px 0   #000,
+		-0    0.5px 0   #000,
+		 0    0.5px 0   #000,
+		-0.5px -0   0   #000,
+		 0.5px -0   0   #000,
+		-0.5px  0   0   #000,
+		 0.5px  0   0   #000,
+		-0.5px -0.5px 0   #000,
+		 0.5px -0.5px 0   #000,
+		-0.5px  0.5px 0   #000,
+		 0.5px  0.5px 0   #000,
+		-0.5px -0.5px 0   #000,
+		 0.5px -0.5px 0   #000,
+		-0.5px  0.5px 0   #000,
+		 0.5px  0.5px 0   #000;
+}
+

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+import CardDetailPage from './Components/Pages/CardDetailPage/CardDetailPage'
 import CartPage from './Components/Pages/CartPage/CartPage'
 import CatalogPage from './Components/Pages/CatalogPage/CatalogPage'
 import DeliveryPage from './Components/Pages/DeliveryPage/DeliveryPage'
@@ -17,6 +18,7 @@ function App() {
 					<Route path='/catalog' element={<CatalogPage />} />
 					<Route path='/delivery' element={<DeliveryPage />} />
 					<Route path='/shopping-cart' element={<CartPage />} />
+					<Route path='/product' element={<CardDetailPage />} />
 					<Route path='*' element={<Non_Found_Page />} />
 				</Route>
 			</Routes>

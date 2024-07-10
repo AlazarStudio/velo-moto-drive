@@ -1,5 +1,6 @@
-/* .swiper_wrapper {
-} */
+.slider_wrapper {
+  background-color: #545454;
+}
 
 .swiper_button_prev,
 .swiper_button_next {

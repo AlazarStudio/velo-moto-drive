@@ -2,32 +2,32 @@ import React, { useState } from 'react'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+import { slides } from '../../../data'
 import Button from '../../Standart/Button/Button'
+import SliderInfo from '../SliderInfo/SliderInfo'
+import SliderLinks from '../SliderLinks/SliderLinks'
 
 import styles from './Slider.module.css'
-import SliderLinks from '../SliderLinks/SliderLinks'
 
 function Slider() {
 	const [swiper, setSwiper] = useState()
+	const [activeIndex, setActiveIndex] = useState(0)
 
 	return (
-		<>
-		<SliderLinks />
+		<section className={styles.slider_wrapper}>
+			<SliderLinks />
 			<div className={styles.swiper_wrapper}>
 				<Swiper
 					className={styles.sliderBox}
 					slidesPerView={1}
 					onSwiper={setSwiper}
+					onSlideChange={swiper => setActiveIndex(swiper.activeIndex)}
 				>
-					<SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_1.png' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_2.png' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_3.png' alt='' />
-					</SwiperSlide>
+					{slides.map((slide, index) => (
+						<SwiperSlide key={index} className={styles.swiper_slide}>
+							<img src={slide.image} alt={`Slide ${index + 1}`} />
+						</SwiperSlide>
+					))}
 				</Swiper>
 				<div className={styles.swiper_buttons}>
 					<Button
@@ -44,7 +44,8 @@ function Slider() {
 					</Button>
 				</div>
 			</div>
-		</>
+			<SliderInfo info={slides[activeIndex].info} />
+		</section>
 	)
 }
 
@@ -69,4 +70,16 @@ export default Slider
 							</div>
 						</div>
 					</CenterBlock> */
+}
+
+{
+	/* <SwiperSlide className={styles.swiper_slide}>
+						<img src='/images/vel_1.png' alt='' />
+					</SwiperSlide>
+					<SwiperSlide className={styles.swiper_slide}>
+						<img src='/images/vel_2.png' alt='' />
+					</SwiperSlide>
+					<SwiperSlide className={styles.swiper_slide}>
+						<img src='/images/vel_3.png' alt='' />
+					</SwiperSlide> */
 }

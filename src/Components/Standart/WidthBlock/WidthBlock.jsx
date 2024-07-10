@@ -1,10 +1,10 @@
 import React from "react";
-import classes from './WidthBlock.module.css';
+import styles from './WidthBlock.module.css';
 
 function WidthBlock({ children, ...props }) {
     return ( 
         <>
-            <div {...props} className={classes.WidthBlock}>
+            <div {...props} className={styles.WidthBlock}>
                 {children}
             </div>
         </>

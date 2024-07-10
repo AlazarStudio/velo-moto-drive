@@ -1,0 +1,6 @@
+.main_banner_wrapper {
+  padding: 30px 100px 60px 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

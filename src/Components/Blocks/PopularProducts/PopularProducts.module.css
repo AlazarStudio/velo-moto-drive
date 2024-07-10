@@ -1,0 +1,10 @@
+.popular_products {
+  padding-top: 20px;
+  background-color: #eee;
+}
+
+.cards_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+}

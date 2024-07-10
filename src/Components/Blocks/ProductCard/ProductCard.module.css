@@ -1,0 +1,86 @@
+.add_to_cart {
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f77532;
+  position: absolute;
+  top: 0;
+  right: -100%; /* Начальное положение за пределами видимой области */
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: right 0.5s ease-in-out; /* Плавное появление */
+}
+
+.card:hover .add_to_cart {
+  right: 0; /* Показать кнопку при наведении */
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 31%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.card_img__wrapper {
+  padding: 22px;
+  border-bottom: 1px solid #b4b4b4;
+}
+
+.card_text__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card_text__mark {
+  height: fit-content;
+  color: #fff;
+  background-color: #f77532;
+  font-size: 16px;
+  line-height: 18.88px;
+  padding: 10px 22px;
+  border-radius: 0 5px 5px 0;
+}
+
+.card_text__discount {
+  padding-right: 22px;
+  height: fit-content;
+  font-size: 20px;
+  line-height: 23.6px;
+  color: #f77532;
+  font-weight: 700;
+}
+
+.card_text__item {
+  padding-inline: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card_text__item___mark {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card_text__main {
+  font-size: 24px;
+  line-height: 28.32px;
+}
+
+.card_text__secondary {
+  font-size: 16px;
+  line-height: 18.88px;
+  font-weight: 400;
+}
