@@ -1,3 +1,18 @@
+@keyframes appear {
+  from{
+    transform: translateX(100%);
+  }
+  to{
+    transform: translateX(0px);
+  }
+}
+
+.run_img {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 50%;
+}
+
 .popular_products__header {
   display: flex;
   justify-content: space-between;
@@ -38,21 +53,21 @@
   line-height: 100px;
   font-weight: 700;
 	text-shadow: 
-		-0   -0.5px 0   #000,
-		 0   -0.5px 0   #000,
-		-0    0.5px 0   #000,
-		 0    0.5px 0   #000,
-		-0.5px -0   0   #000,
-		 0.5px -0   0   #000,
-		-0.5px  0   0   #000,
-		 0.5px  0   0   #000,
-		-0.5px -0.5px 0   #000,
-		 0.5px -0.5px 0   #000,
-		-0.5px  0.5px 0   #000,
-		 0.5px  0.5px 0   #000,
-		-0.5px -0.5px 0   #000,
-		 0.5px -0.5px 0   #000,
-		-0.5px  0.5px 0   #000,
-		 0.5px  0.5px 0   #000;
+		-0   -1px 0   #000,
+		 0   -1px 0   #000,
+		-0    1px 0   #000,
+		 0    1px 0   #000,
+		-1px -0   0   #000,
+		 1px -0   0   #000,
+		-1px  0   0   #000,
+		 1px  0   0   #000,
+		-1px -1px 0   #000,
+		 1px -1px 0   #000,
+		-1px  1px 0   #000,
+		 1px  1px 0   #000,
+		-1px -1px 0   #000,
+		 1px -1px 0   #000,
+		-1px  1px 0   #000,
+		 1px  1px 0   #000;
 }
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Text from '../../Standart/Text/Text'
@@ -31,9 +30,9 @@ function Burger({ children, ...props }) {
 					</Link>
 				</li>
 				<li>
-					<Link to='/'>
+					<a href='#about_us'>
 						<Text {...textProps}>О НАС</Text>
-					</Link>
+					</a>
 				</li>
 				<li>
 					<Link to='/'>

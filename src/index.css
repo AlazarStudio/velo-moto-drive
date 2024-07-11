@@ -14,11 +14,23 @@ a {
     --blockWidth: 1300px;
 }
 
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
 body {
     background-color: #eef0f4;
 }
 
 main {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     /* gap: 80px; */

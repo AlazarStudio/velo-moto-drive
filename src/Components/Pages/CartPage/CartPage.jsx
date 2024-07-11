@@ -1,9 +1,7 @@
-import React from 'react'
-
-import classes from './CartPage.module.css'
+import styles from './CartPage.module.css'
 
 function CartPage({ children, ...props }) {
-	return <>Cart</>
+	return <main>Cart</main>
 }
 
 export default CartPage

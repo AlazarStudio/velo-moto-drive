@@ -1,9 +1,7 @@
-import React from 'react'
-
-import classes from './CatalogPage.module.css'
+import styles from './CatalogPage.module.css'
 
 function CatalogPage({ children, ...props }) {
-	return <>Catalog</>
+	return <main>Catalog</main>
 }
 
 export default CatalogPage

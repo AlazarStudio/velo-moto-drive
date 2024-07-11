@@ -135,3 +135,5 @@ export const slides = [
 		}
 	}
 ]
+
+export const aboutUsText = {}

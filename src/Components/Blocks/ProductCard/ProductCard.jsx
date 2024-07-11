@@ -8,8 +8,7 @@ function ProductCard(props) {
 		e.preventDefault();
 	}
 	return (
-		<div className={styles.card}>
-			<Link to={`/product/${props.linkName}`}>
+			<Link to={`/product/${props.linkName}`} className={styles.card}>
 				<div className={styles.card_img__wrapper}>
 					<img src={props.img} alt='' />
 					<button className={styles.add_to_cart} onClick={handleAddToCart}>
@@ -45,7 +44,6 @@ function ProductCard(props) {
 					</div>
 				</div>
 			</Link>
-		</div>
 	)
 }
 

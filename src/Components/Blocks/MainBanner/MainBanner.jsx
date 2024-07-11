@@ -1,5 +1,3 @@
-import React from 'react'
-
 import styles from './MainBanner.module.css'
 
 function MainBanner() {

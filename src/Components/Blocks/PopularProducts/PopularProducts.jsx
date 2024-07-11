@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { products } from '../../../data'
 import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
 import WidthBlock from '../../Standart/WidthBlock/WidthBlock'

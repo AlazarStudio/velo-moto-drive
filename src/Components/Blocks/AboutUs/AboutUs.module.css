@@ -1,0 +1,82 @@
+.about_us {
+  padding-top: 110px;
+  /* background-color: #eee; */
+}
+
+.about_us__wrapper {
+  background: url('/images/about_us_bg_img.png') no-repeat;
+  height: 1100px;
+  box-sizing: border-box;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.about_us__text {
+  padding-bottom: 60px;
+  width: 878px;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.about_us__header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.about_us__header___img {
+  position: absolute;
+  left: 0;
+  top: -30px;
+}
+
+/* .about_us__header___img img {
+  width: fit-content;
+  height: fit-content;
+} */
+
+.about_us__header___title {
+  color: #fff;
+  text-align: right;
+  font-size: 165px;
+  line-height: 135px;
+  font-weight: 700;
+  text-shadow:
+    -0 -1px 0 #000,
+    0 -1px 0 #000,
+    -0 1px 0 #000,
+    0 1px 0 #000,
+    -1px -0 0 #000,
+    1px -0 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  position: relative;
+}
+
+.about_us__header___title::after {
+  content: attr(data-title);
+  position: absolute;
+  top: 105%;
+  right: 0;
+  color: #fff;
+  text-align: right;
+  line-height: 122px;
+  transform: scaleY(-1);
+  opacity: 0.5;
+}
+
+.about_us__header___title____content {
+  position: absolute;
+  right: 0;
+}
