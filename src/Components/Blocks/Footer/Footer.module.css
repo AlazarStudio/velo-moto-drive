@@ -22,7 +22,7 @@
   position: absolute;
   left: 25%;
   pointer-events: none;
-  transition: transform 3s ease-in-out;
+  /* transition: transform 3s ease-in-out; */
 }
 
 .run_text {
@@ -32,17 +32,19 @@
   color: #00000091;
   white-space: nowrap;
   transform: translateX(0);
-  transition: transform 3s ease-in-out;
+  transition: transform 2s ease-in-out;
   pointer-events: none;
 }
 
 .footer_run__text__wrapper:hover .run_text {
   transform: translateX(-100%);
+  pointer-events: none;
 }
 
-.footer_run__text__wrapper:hover img {
+/* .footer_run__text__wrapper:hover img {
   transform: translateX(60px);
-}
+  pointer-events: none;
+} */
 
 /* @keyframes slideText {
   0% {

@@ -5,10 +5,12 @@ import YandexMap from '../YandexMap/YandexMap'
 
 import styles from './Contacts.module.css'
 
-function Contacts() {
+function Contacts({ id }) {
 	return (
 		<>
-			<p className={styles.contacts_title}>КОНТАКТЫ</p>
+			<p className={styles.contacts_title} id={id}>
+				КОНТАКТЫ
+			</p>
 			<section className={styles.contacts_wrapper}>
 				<CenterBlock>
 					<WidthBlock
@@ -27,7 +29,7 @@ function Contacts() {
 						<Contact
 							img={'/images/contacts_location.png'}
 							title={'НАШ АДРЕС'}
-              value={'г. Черкесск'}
+							value={'г. Черкесск'}
 						/>
 						<a
 							href='https://yandex.ru/maps/-/CDGTM6oY'

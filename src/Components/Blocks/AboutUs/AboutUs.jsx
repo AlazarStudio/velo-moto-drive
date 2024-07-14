@@ -2,9 +2,9 @@ import WidthBlock from '../../Standart/WidthBlock/WidthBlock'
 
 import styles from './AboutUs.module.css'
 
-function AboutUs() {
+function AboutUs({ id }) {
 	return (
-		<section className={styles.about_us} id='about_us'>
+		<section className={styles.about_us} id={id}>
 			<header className={styles.about_us__header}>
 				<WidthBlock>
 					<div className={styles.about_us__header___img}>

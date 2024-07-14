@@ -30,12 +30,12 @@ function Burger({ children, ...props }) {
 					</Link>
 				</li>
 				<li>
-					<a href='#about_us'>
+					<Link to='/?section=about_us'>
 						<Text {...textProps}>О НАС</Text>
-					</a>
+					</Link>
 				</li>
 				<li>
-					<Link to='/'>
+					<Link to='/?section=contacts'>
 						<Text {...textProps}>КОНТАКТЫ</Text>
 					</Link>
 				</li>

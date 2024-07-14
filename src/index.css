@@ -23,7 +23,9 @@ a {
 
 }
 
-
+p {
+    word-break: break-all;
+}
 
 body {
     background-color: #eef0f4;
@@ -38,3 +40,7 @@ main {
     background-color: #fff;
 
 }
+
+/* * {
+    outline: 1px solid rgba(21, 255, 4, 0.6);
+} */

@@ -20,6 +20,8 @@ function Slider() {
 				<Swiper
 					className={styles.sliderBox}
 					slidesPerView={1}
+					direction='horizontal'
+					loop={true}
 					onSwiper={setSwiper}
 					onSlideChange={swiper => setActiveIndex(swiper.activeIndex)}
 				>

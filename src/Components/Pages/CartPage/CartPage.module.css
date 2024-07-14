@@ -1,0 +1,115 @@
+.cart_wrapper {
+  margin: 50px 0 70px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart {
+  padding: 40px;
+  flex-basis: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+}
+
+.cart_title__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart_title {
+  padding-left: 35px;
+  font-size: 32px;
+  line-height: 39px;
+  font-weight: 600;
+}
+
+
+
+.cart_total {
+  padding: 40px;
+  height: fit-content;
+  flex-basis: 32%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+}
+
+.cart_total__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #8c8c8c;
+}
+
+.total_btn {
+  padding: 20px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 19.5px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #f77523;
+  cursor: pointer;
+}
+
+.check_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.check_box__wrapper {
+  flex-basis: 5%;
+}
+
+.checkbox_round {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #b4b4b4;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox_round:checked {
+  background-color: #f77523;
+  border: 1px solid #f77523;
+}
+
+.checkbox_round:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+  transform-origin: center center;
+}
+
+.check_box__text {
+  flex-basis: 92%;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #8c8c8c;
+}

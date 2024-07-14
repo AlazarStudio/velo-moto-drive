@@ -27,6 +27,7 @@
 .delivery_bg_img1,
 .delivery_bg_img2 {
   position: absolute;
+  pointer-events: none;
 }
 
 .delivery_bg_img1 img,
@@ -34,6 +35,7 @@
   width: fit-content;
   height: fit-content;
   object-fit: contain;
+  pointer-events: none;
 }
 
 .delivery_bg_img1 {
