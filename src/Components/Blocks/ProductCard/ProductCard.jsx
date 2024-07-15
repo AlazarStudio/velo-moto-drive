@@ -1,13 +1,26 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from './ProductCard.module.css'
 
-function ProductCard(props) {
+function ProductCard({ onClick, ...props }) {
 	const handleAddToCart = e => {
 		e.preventDefault()
+		e.stopPropagation();
 	}
+
+	const handleLinkClick = () => {
+		if (onClick) {
+			onClick() // Вызываем функцию onClick, переданную из CardDetailPage
+		}
+	}
+
 	return (
-		<Link to={`/product/${props.linkName}`} className={styles.card}>
+		<Link
+			to={`/product/${props.linkName}`}
+			className={styles.card}
+			onClick={handleLinkClick}
+		>
 			<div className={styles.card_img__wrapper}>
 				<img src={props.img[0]} alt='' />
 				<button className={styles.add_to_cart} onClick={handleAddToCart}>

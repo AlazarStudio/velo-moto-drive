@@ -5,6 +5,13 @@
   justify-content: space-between;
 }
 
+.loader_wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .product_detail_swiper {
   flex-basis: 52%;
   display: flex;
@@ -52,6 +59,11 @@
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+
+.swiper_buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .product_buy_banner {
@@ -134,3 +146,16 @@
   word-break: break-all;
 }
 
+.similar_products_title {
+  padding-left: 10px;
+  font-size: 32px;
+  line-height: 37px;
+  font-weight: 600;
+}
+
+.similar_products_wrapper {
+  margin-bottom: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+}
