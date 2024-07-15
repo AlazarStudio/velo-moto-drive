@@ -144,7 +144,38 @@
   font-size: 16px;
   line-height: 20px;
   word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.collapsed .product_description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expanded .product_description {
+  display: block;
+}
+
+.toggleButton {
+  background-color: transparent;
+  color: #464646;
+  border: none;
+  /* padding: 10px; */
+  cursor: pointer;
+  font-size: 14px;
+  /* border-radius: 5px; */
+}
+
+/* .toggleButton:hover {
+  background-color: #d9661f;
+} */
 
 .similar_products_title {
   padding-left: 10px;

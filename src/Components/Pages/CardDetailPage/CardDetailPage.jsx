@@ -22,6 +22,7 @@ function CardDetailPage() {
 
 	const product = products.find(p => p.linkName === id)
 	const [loading, setLoading] = useState(false)
+	const [isExpanded, setIsExpanded] = useState(false)
 
 	if (!product) {
 		return <Non_Found_Page />
@@ -37,11 +38,15 @@ function CardDetailPage() {
 		const handleCardClick = () => {
 			setLoading(true) // Устанавливаем состояние загрузки в true при клике на карточку товара
 			setTimeout(() => {
-				setLoading(false) // Имитация загрузки: устанавливаем состояние загрузки в false через некоторое время
-			}, 1000) // Например, через 2 секунды
+				setLoading(false)
+			}, 1000)
 		}
 		const handleAddToCart = e => {
 			e.preventDefault()
+		}
+
+		const toggleExpand = () => {
+			setIsExpanded(!isExpanded)
 		}
 
 		return (
@@ -128,9 +133,20 @@ function CardDetailPage() {
 											itemValue={'вес, кг'}
 										/>
 									</div>
-									<p className={styles.product_description}>
-										{product.description}
-									</p>
+									<div
+										className={isExpanded ? styles.expanded : styles.collapsed}
+									>
+										<p className={styles.product_description}>
+											{product.description}
+										</p>
+										<button
+											className={styles.toggleButton}
+											onClick={toggleExpand}
+										>
+											{isExpanded ? 'Свернуть' : 'Читать дальше'}
+										</button>
+									</div>
+
 									<ProductColor color={product.color.toLowerCase()} />
 									<ProductTechInfo id={id} />
 								</div>
@@ -147,7 +163,6 @@ function CardDetailPage() {
 										<ProductCard
 											key={index}
 											{...productFromDb}
-											
 											onClick={handleCardClick}
 										/>
 									))}
