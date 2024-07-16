@@ -23,7 +23,7 @@ function Slider() {
 					direction='horizontal'
 					loop={true}
 					onSwiper={setSwiper}
-					onSlideChange={swiper => setActiveIndex(swiper.activeIndex)}
+					onSlideChange={swiper => setActiveIndex(swiper.realIndex)}
 				>
 					{slides.map((slide, index) => (
 						<SwiperSlide key={index} className={styles.swiper_slide}>
@@ -52,36 +52,3 @@ function Slider() {
 }
 
 export default Slider
-
-{
-	/* <CenterBlock>
-						<div className={styles.shadow_vel3}>
-							<div style={{ marginLeft:'30px', width: '40%' }}>
-								<img
-									style={{ width: '40%' }}
-									src='/images/shadow1_vel1.png'
-									alt=''
-								/>
-							</div>
-							<div style={{ width: '40%' }}>
-								<img
-									style={{ width: '40%' }}
-									src='/images/shadow2_vel1.png'
-									alt=''
-								/>
-							</div>
-						</div>
-					</CenterBlock> */
-}
-
-{
-	/* <SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_1.png' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_2.png' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className={styles.swiper_slide}>
-						<img src='/images/vel_3.png' alt='' />
-					</SwiperSlide> */
-}

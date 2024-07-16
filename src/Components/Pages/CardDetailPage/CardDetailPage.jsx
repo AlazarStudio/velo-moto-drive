@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Loader from 'react-js-loader'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -23,6 +23,27 @@ function CardDetailPage() {
 	const product = products.find(p => p.linkName === id)
 	const [loading, setLoading] = useState(false)
 	const [isExpanded, setIsExpanded] = useState(false)
+
+	const [isAddedToCart, setIsAddedToCart] = useState(false)
+
+	useEffect(() => {
+		// Проверяем, есть ли текущий товар в корзине при загрузке компонента
+		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+		const isAlreadyInCart = cart.some(item => item.name === product.name)
+		setIsAddedToCart(isAlreadyInCart)
+	}, [product.name])
+
+	const handleAddToCartPage = () => {
+		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+
+		const isAlreadyInCart = cart.some(item => item.name === product.name)
+
+		if (!isAlreadyInCart) {
+			const newCart = [...cart, product]
+			localStorage.setItem('cart', JSON.stringify(newCart))
+			setIsAddedToCart(true)
+		}
+	}
 
 	if (!product) {
 		return <Non_Found_Page />
@@ -103,12 +124,22 @@ function CardDetailPage() {
 											</p>
 										</div>
 										<div className={styles.product_buy_item}>
-											<button
-												className={styles.buy_btn}
-												style={{ backgroundColor: '#f77523', color: '#fff' }}
-											>
-												ДОБАВИТЬ В КОРЗИНУ
-											</button>
+											{isAddedToCart ? (
+												<Link
+													to={'/shopping-cart'}
+													className={styles.buy_btn}
+												>
+													<p>ДОБАВЛЕНО В КОРЗИНУ &#10148;</p>
+												</Link>
+											) : (
+												<button
+													className={styles.buy_btn}
+													style={{ backgroundColor: '#f77523', color: '#fff' }}
+													onClick={handleAddToCartPage}
+												>
+													ДОБАВИТЬ В КОРЗИНУ
+												</button>
+											)}
 										</div>
 									</div>
 								</div>
@@ -156,7 +187,7 @@ function CardDetailPage() {
 								{products
 									.filter(
 										productFromDb =>
-											productFromDb.currentPrice !== product.currentPrice
+											productFromDb.name !== product.name
 									)
 									.slice(-3)
 									.map((productFromDb, index) => (

@@ -15,7 +15,7 @@ function PopularProducts() {
 					<div className={styles.cards_wrapper}>
 						{products.map((product, index) => (
 							<ProductCard key={index} {...product} />
-						))}
+						)).reverse()}
 					</div>
 				</WidthBlock>
 			</CenterBlock>
