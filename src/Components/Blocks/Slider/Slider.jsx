@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import 'swiper/css'
+import { Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { slides } from '../../../data'
@@ -22,8 +23,13 @@ function Slider() {
 					slidesPerView={1}
 					direction='horizontal'
 					loop={true}
+					autoplay={{
+						delay: 5000,
+						disableOnInteraction: false
+					}}
 					onSwiper={setSwiper}
 					onSlideChange={swiper => setActiveIndex(swiper.realIndex)}
+					modules={[Autoplay]}
 				>
 					{slides.map((slide, index) => (
 						<SwiperSlide key={index} className={styles.swiper_slide}>

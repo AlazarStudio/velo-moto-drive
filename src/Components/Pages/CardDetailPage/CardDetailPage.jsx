@@ -185,10 +185,10 @@ function CardDetailPage() {
 							<p className={styles.similar_products_title}>ПОХОЖИЕ ТОВАРЫ</p>
 							<div className={styles.similar_products_wrapper}>
 								{products
-									.filter(
-										productFromDb =>
-											productFromDb.name !== product.name
-									)
+									// .filter(
+									// 	productFromDb =>
+									// 		productFromDb.name !== product.name
+									// )
 									.slice(-3)
 									.map((productFromDb, index) => (
 										<ProductCard

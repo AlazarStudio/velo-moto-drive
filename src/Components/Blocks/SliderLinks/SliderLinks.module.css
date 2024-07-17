@@ -9,8 +9,11 @@
 }
 
 .slider_links li a {
-  font-size: 16px;
-  line-height: 19.5px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
+}
+
+.slider_links li a:hover {
+  border-bottom: 4px solid #f77532;
 }
