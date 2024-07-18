@@ -44,16 +44,6 @@ function ProductCard({ onClick, ...props }) {
 		>
 			<div className={styles.card_img__wrapper}>
 				<img src={props.img[0]} alt='' />
-				{isAddedToCart ? (
-					<Link to={'/shopping-cart'} className={styles.add_to_cart}>
-						<p>ДОБАВЛЕНО В КОРЗИНУ &#10148;</p>
-					</Link>
-				) : (
-					<button className={styles.add_to_cart} onClick={handleAddToCart}>
-						<img src='/images/add_to_cart.png' alt='' />
-						<p>ДОБАВИТЬ В КОРЗИНУ</p>
-					</button>
-				)}
 			</div>
 			<div className={styles.card_text__wrapper}>
 				<div className={styles.card_text__item___mark}>
@@ -80,6 +70,16 @@ function ProductCard({ onClick, ...props }) {
 					<p className={styles.card_text__main}>{props.currentPrice} ₽</p>
 				</div>
 			</div>
+			{isAddedToCart ? (
+				<Link to={'/shopping-cart'} className={styles.add_to_cart}>
+					<p>ДОБАВЛЕНО В КОРЗИНУ &#10148;</p>
+				</Link>
+			) : (
+				<button className={styles.add_to_cart} onClick={handleAddToCart}>
+					<img src='/images/add_to_cart.png' alt='' />
+					<p>ДОБАВИТЬ В КОРЗИНУ</p>
+				</button>
+			)}
 		</Link>
 	)
 }

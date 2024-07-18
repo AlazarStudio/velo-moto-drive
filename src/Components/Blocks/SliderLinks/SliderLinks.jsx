@@ -6,16 +6,16 @@ function SliderLinks({ children, ...props }) {
 	return (
 		<ul className={styles.slider_links}>
 			<li>
-				<Link to='/catalog'>Велосипеды</Link>
+				<Link to='/catalog/bike'>Велосипеды</Link>
 			</li>
 			<li>
-				<Link to='/catalog'>Мопеды</Link>
+				<Link to='/catalog/mopeds'>Мопеды</Link>
 			</li>
 			<li>
-				<Link to='/catalog'>Самокаты</Link>
+				<Link to='/catalog/scooters'>Самокаты</Link>
 			</li>
 			<li>
-				<Link to='/catalog'>Квадроциклы</Link>
+				<Link to='/catalog/atvs'>Квадроциклы</Link>
 			</li>
 		</ul>
 	)

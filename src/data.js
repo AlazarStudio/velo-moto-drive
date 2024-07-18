@@ -1,11 +1,13 @@
 export const products = [
 	{
 		img: ['/images/card1.png', '/images/card2.png', '/images/card3.png'],
+		type: 'Велосипеды',
 		category: 'ГОРОДСКОЙ',
+		ageGroup:'Для взрослых',
 		discount: '18%',
 		originalPrice: '53000',
 		currentPrice: '43610',
-		gender: 'Женский, Мужской',
+		gender: 'Женский',
 		name: 'DISCO',
 		linkName: 'disco',
 		description:
@@ -25,11 +27,14 @@ export const products = [
 		carriage: 'Feimin FP–B902, картридж ',
 		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Двухподвес'
 	},
 	{
 		img: ['/images/card2.png', '/images/card1.png', '/images/card3.png'],
+		type: 'Велосипеды',
 		category: 'ГОРНЫЙ',
+		ageGroup:'От 2 до 5 лет',
 		discount: '18%',
 		originalPrice: '36400',
 		currentPrice: '28000',
@@ -51,13 +56,16 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '18',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Дисковые механические Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Хардтейл'
 	},
 	{
 		img: ['/images/card3.png', '/images/card1.png', '/images/card2.png'],
+		type: 'Мопеды',
 		category: 'ГОРНЫЙ',
+		ageGroup:'От 3 до 6 лет',
 		discount: '18%',
 		originalPrice: '40440',
 		currentPrice: '33026',
@@ -79,17 +87,20 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '30',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Ножной тормоз Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Двухподвес'
 	},
 	{
 		img: ['/images/card1.png', '/images/card2.png', '/images/card3.png'],
+		type: 'Мопеды',
 		category: 'ГОРОДСКОЙ',
+		ageGroup:'От 5 до 8 лет',
 		discount: '18%',
 		originalPrice: '53000',
-		currentPrice: '43610',
-		gender: 'Женский, Мужской',
+		currentPrice: '48120',
+		gender: 'Женский',
 		name: 'DISCO_v2',
 		linkName: 'disco2',
 		description:
@@ -107,16 +118,19 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '24',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Клещевой Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Двухподвес'
 	},
 	{
 		img: ['/images/card2.png', '/images/card1.png', '/images/card3.png'],
+		type: 'Самокаты',
 		category: 'ГОРНЫЙ',
+		ageGroup:'Подростковый',
 		discount: '18%',
 		originalPrice: '36400',
-		currentPrice: '28000',
+		currentPrice: '24050',
 		gender: 'Мужской',
 		name: 'QUEST DISC 29_v2',
 		linkName: 'quest_disc_29_2',
@@ -135,16 +149,19 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '18',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Клещевой Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Хардтейл'
 	},
 	{
 		img: ['/images/card3.png', '/images/card1.png', '/images/card2.png'],
+		type: 'Самокаты',
 		category: 'ГОРНЫЙ',
+		ageGroup:'От 5 до 8 лет',
 		discount: '18%',
 		originalPrice: '40440',
-		currentPrice: '33026',
+		currentPrice: '33176',
 		gender: 'Мужской',
 		name: 'ROCKY 2.0 DISC 29_v2',
 		linkName: 'rocky_2.0_disc_29_2',
@@ -163,17 +180,20 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '30',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'U-brake Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Жесткая вилка'
 	},
 	{
 		img: ['/images/card1.png', '/images/card2.png', '/images/card3.png'],
+		type: 'Квадроциклы',
 		category: 'ГОРОДСКОЙ',
+		ageGroup:'От 3 до 6 лет',
 		discount: '18%',
 		originalPrice: '53000',
-		currentPrice: '43610',
-		gender: 'Женский, Мужской',
+		currentPrice: '43044',
+		gender: 'Женский',
 		name: 'DISCO_v3',
 		linkName: 'disco3',
 		description:
@@ -191,16 +211,19 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '24',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'V-brake Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Двухподвес'
 	},
 	{
 		img: ['/images/card2.png', '/images/card1.png', '/images/card3.png'],
+		type: 'Квадроциклы',
 		category: 'ГОРНЫЙ',
+		ageGroup:'От 2 до 5 лет',
 		discount: '18%',
 		originalPrice: '36400',
-		currentPrice: '28000',
+		currentPrice: '28052',
 		gender: 'Мужской',
 		name: 'QUEST DISC 29_v3',
 		linkName: 'quest_disc_29_3',
@@ -219,16 +242,19 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '18',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Передний V-brake Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Жесткая вилка'
 	},
 	{
 		img: ['/images/card3.png', '/images/card1.png', '/images/card2.png'],
+		type: 'Велосипеды',
 		category: 'ГОРНЫЙ',
+		ageGroup:'Для взрослых',
 		discount: '18%',
 		originalPrice: '40440',
-		currentPrice: '33026',
+		currentPrice: '33666',
 		gender: 'Мужской',
 		name: 'ROCKY 2.0 DISC 29_v3',
 		linkName: 'rocky_2.0_disc_29_3',
@@ -247,9 +273,10 @@ export const products = [
 		cassetteAndRatchet: 'Shimano HG200–8, 12–32T',
 		speed: '30',
 		carriage: 'Feimin FP–B902, картридж ',
-		brakes: 'Дисковые гидравлические Shimano MT200 / M315 160 мм',
+		brakes: 'Передний клещевой Shimano MT200 / M315 160 мм',
 		bushings: 'Shimano HB–TX505, 32H',
-		rubber: 'Kenda 700 x 38C'
+		rubber: 'Kenda 700 x 38C',
+		amor:'Хардтейл'
 	}
 ]
 

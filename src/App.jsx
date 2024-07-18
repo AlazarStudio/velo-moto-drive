@@ -15,6 +15,7 @@ function App() {
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />} />
 					<Route path='/catalog' element={<CatalogPage />} />
+					<Route path='/catalog/:id' element={<CatalogPage />} />
 					<Route path='/delivery' element={<DeliveryPage />} />
 					<Route path='/shopping-cart' element={<CartPage />} />
 					<Route path='/product/:id' element={<CardDetailPage />} />

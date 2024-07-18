@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Colors } from '../../../data'
 import Button from '../../Standart/Button/Button'
@@ -6,55 +7,34 @@ import Scale from '../Scale/Scale'
 
 import styles from './Filter.module.css'
 
-function Filter({ ...props }) {
-	
-	const [selectedColor, setSelectedColor] = useState('')
+function Filter({
+	handleChange,
+	filterData,
+	selectedType,
+	selectedColor,
+	handleVeloTypeClick,
+	resetForm,
+	handleColorChange,
+	sortOrder,
+	setSortOrder
+}) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-	const [selectedModel, setSelectedModel] = useState('')
-	const [selectedType, setSelectedType] = useState('')
-	const [selectedAgeGroup, setSelectedAgeGroup] = useState('')
-	const [selectedBrakes, setSelectedBrakes] = useState('')
-	const [selectedAmor, setSelectedAmor] = useState('')
-	const [selectedMaterial, setSelectedMaterial] = useState('')
 	const [temperatureRange, setTemperatureRange] = useState([1, 27])
 	const [temperatureRange2, setTemperatureRange2] = useState([12, 29])
 	const [temperatureRange3, setTemperatureRange3] = useState([13, 23])
 
 	const handleColorClick = color => {
-		setSelectedColor(color)
+		handleColorChange(color)
 		setIsDropdownOpen(false)
+		handleChange({ target: { name: 'color', value: color } })
 	}
 
 	const toggleDropdown = () => {
 		setIsDropdownOpen(!isDropdownOpen)
 	}
 
-	const handleModelChange = event => {
-		setSelectedModel(event.target.value)
-	}
-
-	const handleTypeChange = event => {
-		setSelectedType(event.target.value)
-	}
-
-	const handleAgeGroupChange = event => {
-		setSelectedAgeGroup(event.target.value)
-	}
-
-	const handleBrakesChange = event => {
-		setSelectedBrakes(event.target.value)
-	}
-
-	const handleAmorChange = event => {
-		setSelectedAmor(event.target.value)
-	}
-
-	const handleMaterialChange = event => {
-		setSelectedMaterial(event.target.value)
-	}
-
 	const handleTemperatureChange = newValue => {
-		setTemperatureRange(newValue) // Обработчик для изменения диапазона температуры
+		setTemperatureRange(newValue)
 	}
 
 	const handleTemperatureChange2 = newValue => {
@@ -66,121 +46,148 @@ function Filter({ ...props }) {
 	}
 
 	const handleResetFilters = () => {
-		setSelectedModel('')
-		setSelectedType('')
-		setSelectedAgeGroup('')
-		setSelectedBrakes('')
-		setSelectedAmor('')
-		setSelectedMaterial('')
 		setTemperatureRange([1, 27])
 		setTemperatureRange2([12, 29])
 		setTemperatureRange3([13, 23])
-		setSelectedColor('')
+		handleColorChange('')
 		setIsDropdownOpen(false)
+		resetForm()
+	}
+
+	useEffect(() => {
+		if (!selectedColor) {
+			setIsDropdownOpen(false)
+		}
+	}, [selectedColor])
+
+	const veloTypes = [
+		{ russian: 'Велосипеды', english: 'bike' },
+		{ russian: 'Мопеды', english: 'mopeds' },
+		{ russian: 'Самокаты', english: 'scooters' },
+		{ russian: 'Квадроциклы', english: 'atvs' }
+	]
+
+	const handleSortOrderChange = e => {
+		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
 	}
 
 	return (
 		<div className={styles.filter_wrapper}>
 			<ul className={styles.velo_types}>
-				<li>Велосипеды</li>
-				<li>Мопеды</li>
-				<li>Самокаты</li>
-				<li>Квадроциклы</li>
+				{veloTypes.map(type => (
+					<Link
+						to={`/catalog/${type.english}`}
+						key={type.russian}
+						onClick={() => handleVeloTypeClick(type.russian)}
+						className={selectedType === type.russian ? styles.selected : ''}
+					>
+						{type.russian}
+					</Link>
+				))}
 			</ul>
-			<Button onClick={handleResetFilters}>Сбросить фильтр</Button>
+			<Button to='/catalog' onClick={handleResetFilters}>
+				Сбросить фильтр
+			</Button>
 			<select
 				className={styles.filter_item}
 				name='model'
 				id=''
-				value={selectedModel}
-				onChange={handleModelChange}
+				value={filterData.model}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Модель
 				</option>
 				<option value=''>Все</option>
-				<option value='disco'>DISCO</option>
-				<option value='quest'>QUEST DISC 29 </option>
-				<option value='rocky 2.0'>ROCKY 2.0 DISC 29</option>
+				<option value='DISCO'>DISCO</option>
+				<option value='QUEST DISC 29'>QUEST DISC 29</option>
+				<option value='ROCKY 2.0 DISC 29'>ROCKY 2.0 DISC 29</option>
 			</select>
+
 			<select
 				className={styles.filter_item}
 				name='type'
 				id=''
-				value={selectedType}
-				onChange={handleTypeChange}
+				value={filterData.type}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Тип
 				</option>
 				<option value=''>Все</option>
-				<option value='mountain'>Горный</option>
-				<option value='city'>Городской</option>
-				<option value='folding'>Складной</option>
-				<option value='road'>Шоссейный</option>
-				<option value='teenager'>Подростковый</option>
+				<option value='Горный'>Горный</option>
+				<option value='Городской'>Городской</option>
+				<option value='Складной'>Складной</option>
+				<option value='Шоссейный'>Шоссейный</option>
+				<option value='Подростковый'>Подростковый</option>
 			</select>
+
 			<select
 				className={styles.filter_item}
-				name='age_group'
+				name='ageGroup'
 				id=''
-				value={selectedAgeGroup}
-				onChange={handleAgeGroupChange}
+				value={filterData.ageGroup}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Возрастная группа
 				</option>
 				<option value=''>Все</option>
-				<option value='adult'>Для взрослых</option>
-				<option value='two_five'>От 2 до 5 лет</option>
-				<option value='three_five'>От 3 до 5 лет</option>
-				<option value='six_eight'>От 6 до 8 лет</option>
-				<option value='teenager'>Подростковый</option>
+				<option value='Для взрослых'>Для взрослых</option>
+				<option value='От 2 до 5 лет'>От 2 до 5 лет</option>
+				<option value='От 3 до 6 лет'>От 3 до 6 лет</option>
+				<option value='От 5 до 8 лет'>От 5 до 8 лет</option>
+				<option value='Подростковый'>Подростковый</option>
 			</select>
-			<div className={styles.gender_filter}>
-				<p>Пол</p>
-				<div className={styles.checkbox_wrapper}>
-					<input type='checkbox' className={styles.checkbox_round} />
-					<label htmlFor=''>М</label>
-					<input type='checkbox' className={styles.checkbox_round} />
-					<label htmlFor=''>Ж</label>
-				</div>
-			</div>
+			<select
+				className={styles.filter_item}
+				name='gender'
+				id=''
+				value={filterData.gender}
+				onChange={handleChange}
+			>
+				<option value='' disabled hidden defaultValue>
+					Пол
+				</option>
+				<option value=''>Все</option>
+				<option value='Мужской'>Мужской</option>
+				<option value='Женский'>Женский</option>
+			</select>
 
 			<select
 				className={styles.filter_item}
 				name='brakes'
 				id=''
-				value={selectedBrakes}
-				onChange={handleBrakesChange}
+				value={filterData.brakes}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Тормоза
 				</option>
 				<option value=''>Все</option>
-				<option value='u_brake'>U-brake</option>
-				<option value='v_brake'>V-brake</option>
-				<option value='hydraulic_disc_pumps'>Дисковые гидравлические</option>
-				<option value='mechanical_disk_drives'>Дисковые механические</option>
-				<option value='pincer_brake'>Клещевой</option>
-				<option value='foot_brake'>Ножной тормоз</option>
-				<option value='front_v_brake'>Передний V-brake</option>
-				<option value='front_pincer'>Передний клещевой</option>
+				<option value='U-brake'>U-brake</option>
+				<option value='V-brake'>V-brake</option>
+				<option value='Дисковые гидравлические'>Дисковые гидравлические</option>
+				<option value='Дисковые механические'>Дисковые механические</option>
+				<option value='Клещевой'>Клещевой</option>
+				<option value='Ножной тормоз'>Ножной тормоз</option>
+				<option value='Передний V-brake'>Передний V-brake</option>
+				<option value='Передний клещевой'>Передний клещевой</option>
 			</select>
 			<select
 				className={styles.filter_item}
-				name='type'
+				name='amor'
 				id=''
-				value={selectedAmor}
-				onChange={handleAmorChange}
+				value={filterData.amor}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Амортизация
 				</option>
 				<option value=''>Все</option>
-				<option value='two_suspension'>Двухподвес</option>
-				<option value='hard_fork'>Жесткая вилка</option>
-				<option value='hard_tail'>Хардтейл</option>
+				<option value='Двухподвес'>Двухподвес</option>
+				<option value='Жесткая вилка'>Жесткая вилка</option>
+				<option value='Хардтейл'>Хардтейл</option>
 			</select>
 			<div className={styles.custom_color_filter}>
 				<div className={styles.color_selected} onClick={toggleDropdown}>
@@ -210,15 +217,15 @@ function Filter({ ...props }) {
 				className={styles.filter_item}
 				name='material'
 				id=''
-				value={selectedMaterial}
-				onChange={handleMaterialChange}
+				value={filterData.material}
+				onChange={handleChange}
 			>
-				<option value='' disabled selected hidden>
+				<option value='' disabled hidden defaultValue>
 					Материал рамы
 				</option>
 				<option value=''>Все</option>
-				<option value='alu'>Алюминий</option>
-				<option value='st'>Сталь</option>
+				<option value='Алюминий'>Алюминий</option>
+				<option value='Сталь'>Сталь</option>
 			</select>
 			<div className={styles.scale_wrapper}>
 				<div className={styles.filter_item__scale}>
@@ -227,7 +234,7 @@ function Filter({ ...props }) {
 						onChange={handleTemperatureChange}
 						min={1}
 						max={27}
-						title={'Кол-во скоростей'}
+						title={'Количество скоростей'}
 					/>
 				</div>
 				<div className={styles.filter_item__scale}>
@@ -249,24 +256,23 @@ function Filter({ ...props }) {
 					/>
 				</div>
 			</div>
+			<div className={styles.price}>
+				<p>Цены</p>
+				<select
+					name='price'
+					className={styles.filter_price}
+					value={sortOrder}
+					onChange={handleSortOrderChange}
+				>
+					<option value='' disabled hidden defaultValue>
+						Сортировка
+					</option>
+					<option value='desc'>По возрастанию</option>
+					<option value='asc'>По убыванию</option>
+				</select>
+			</div>
 		</div>
 	)
 }
 
 export default Filter
-
-{
-	/* <div className={styles.material_filter}>
-				<p>Материал рамы</p>
-				<div className={styles.material_checkbox_wrapper}>
-					<div className={styles.mcb_item}>
-						<input type='checkbox' className={styles.checkbox_round} />
-						<label htmlFor=''>Алюминий</label>
-					</div>
-					<div className={styles.mcb_item}>
-						<input type='checkbox' className={styles.checkbox_round} />
-						<label htmlFor=''>Сталь</label>
-					</div>
-				</div>
-			</div> */
-}

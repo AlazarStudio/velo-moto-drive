@@ -4,3 +4,12 @@
   flex-wrap: wrap;
   gap: 45px;
 }
+
+.no_results {
+  flex-basis: 100%;
+  font-size: 40px;
+  text-align: center;
+  color: #f77523;
+  font-weight: 700;
+}
+
