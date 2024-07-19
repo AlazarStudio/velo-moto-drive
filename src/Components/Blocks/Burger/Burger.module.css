@@ -55,8 +55,18 @@
   }
 
   .nav_list {
+    width: 100%;
     flex-direction: column; /* Вертикальное расположение пунктов меню */
     align-items: flex-start; /* Выравнивание по левому краю */
     gap: 20px; /* Отступы между пунктами меню */
+  }
+
+  .nav_list a {
+    width: 100%;
+    display: block;
+  }
+  
+  .burger_item {
+    width: 100%;
   }
 }
