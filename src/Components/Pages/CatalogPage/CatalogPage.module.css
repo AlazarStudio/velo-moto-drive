@@ -13,3 +13,24 @@
   font-weight: 700;
 }
 
+.loader_wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search_container {
+  width: 100%;
+  display: flex;
+}
+
+.search_input {
+  margin-top: 34px;
+  margin-bottom: -30px;
+  padding: 10px 20px;
+  width: 100%;
+  border: 1px solid #848484;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+}

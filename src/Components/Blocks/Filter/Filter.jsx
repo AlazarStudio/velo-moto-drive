@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Colors } from '../../../data'
@@ -16,12 +16,17 @@ function Filter({
 	resetForm,
 	handleColorChange,
 	sortOrder,
-	setSortOrder
+	setSortOrder,
+	speedRange,
+  handleSpeedChange,
+  wheelSizeRange,
+  handleWheelSizeChange,
+  frameSizeRange,
+  handleFrameSizeChange,
+	productLength
 }) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-	const [temperatureRange, setTemperatureRange] = useState([1, 27])
-	const [temperatureRange2, setTemperatureRange2] = useState([12, 29])
-	const [temperatureRange3, setTemperatureRange3] = useState([13, 23])
+	const dropdownRef = useRef(null)
 
 	const handleColorClick = color => {
 		handleColorChange(color)
@@ -33,22 +38,10 @@ function Filter({
 		setIsDropdownOpen(!isDropdownOpen)
 	}
 
-	const handleTemperatureChange = newValue => {
-		setTemperatureRange(newValue)
-	}
-
-	const handleTemperatureChange2 = newValue => {
-		setTemperatureRange2(newValue)
-	}
-
-	const handleTemperatureChange3 = newValue => {
-		setTemperatureRange3(newValue)
-	}
-
 	const handleResetFilters = () => {
-		setTemperatureRange([1, 27])
-		setTemperatureRange2([12, 29])
-		setTemperatureRange3([13, 23])
+		handleSpeedChange([1, 27])
+		handleWheelSizeChange([12, 29])
+		handleFrameSizeChange([13, 23])
 		handleColorChange('')
 		setIsDropdownOpen(false)
 		resetForm()
@@ -70,6 +63,25 @@ function Filter({
 	const handleSortOrderChange = e => {
 		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
 	}
+
+
+	const handleClickOutside = event => {
+		if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+			setIsDropdownOpen(false)
+		}
+	}
+
+	useEffect(() => {
+		if (isDropdownOpen) {
+			document.addEventListener('mousedown', handleClickOutside)
+		} else {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isDropdownOpen])
 
 	return (
 		<div className={styles.filter_wrapper}>
@@ -189,7 +201,7 @@ function Filter({
 				<option value='Жесткая вилка'>Жесткая вилка</option>
 				<option value='Хардтейл'>Хардтейл</option>
 			</select>
-			<div className={styles.custom_color_filter}>
+			<div className={styles.custom_color_filter} ref={dropdownRef}>
 				<div className={styles.color_selected} onClick={toggleDropdown}>
 					{selectedColor ? (
 						<div
@@ -230,8 +242,8 @@ function Filter({
 			<div className={styles.scale_wrapper}>
 				<div className={styles.filter_item__scale}>
 					<Scale
-						value={temperatureRange}
-						onChange={handleTemperatureChange}
+						value={speedRange}
+						onChange={handleSpeedChange}
 						min={1}
 						max={27}
 						title={'Количество скоростей'}
@@ -239,8 +251,8 @@ function Filter({
 				</div>
 				<div className={styles.filter_item__scale}>
 					<Scale
-						value={temperatureRange2}
-						onChange={handleTemperatureChange2}
+						value={wheelSizeRange}
+						onChange={handleWheelSizeChange}
 						min={12}
 						max={29}
 						title={'Диаметр колеса'}
@@ -248,8 +260,8 @@ function Filter({
 				</div>
 				<div className={styles.filter_item__scale}>
 					<Scale
-						value={temperatureRange3}
-						onChange={handleTemperatureChange3}
+						value={frameSizeRange}
+						onChange={handleFrameSizeChange}
 						min={13}
 						max={23}
 						title={'Ростовка рамы'}
@@ -257,19 +269,23 @@ function Filter({
 				</div>
 			</div>
 			<div className={styles.price}>
-				<p>Цены</p>
-				<select
-					name='price'
-					className={styles.filter_price}
-					value={sortOrder}
-					onChange={handleSortOrderChange}
-				>
-					<option value='' disabled hidden defaultValue>
-						Сортировка
-					</option>
-					<option value='desc'>По возрастанию</option>
-					<option value='asc'>По убыванию</option>
-				</select>
+				<p>Количество товаров: <span>{productLength}</span></p>
+
+				<div className={styles.price_item}>
+					<p>Цены</p>
+					<select
+						name='price'
+						className={styles.filter_price}
+						value={sortOrder}
+						onChange={handleSortOrderChange}
+					>
+						<option value='' disabled hidden defaultValue>
+							Сортировка
+						</option>
+						<option value='desc'>По возрастанию</option>
+						<option value='asc'>По убыванию</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	)

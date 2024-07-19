@@ -1,3 +1,8 @@
+.burger_icon {
+  display: none; /* Скрыть бургер-меню по умолчанию */
+  cursor: pointer; /* Указатель для кнопки бургер-меню */
+}
+
 .nav {
   display: flex;
 }
@@ -6,4 +11,52 @@
   display: flex;
   align-items: center;
   gap: 110px;
+}
+
+.burger_item {
+  font-size: 16px;
+  line-height: 19.5px;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) { /* Порог для мобильных устройств */
+  .burger_icon {
+    display: block; 
+    position: absolute; 
+    color: #fff;
+    font-size: 24px;
+    left: 20px; /* Отступ от левого края */
+    top: 19px; /* Отступ сверху */
+    z-index: 1000; /* Убедиться, что бургер-меню поверх других элементов */
+  }
+
+  .nav {
+    position: fixed; /* Закрепленное позиционирование */
+    top: 60px;
+    left: 0;
+    width: 200px; /* Ширина меню */
+    height: fit-content; /* Высота меню на весь экран */
+    background-color: #545454; /* Цвет фона меню */
+    padding: 20px; /* Отступы внутри меню */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Тень для меню */
+    transform: translateX(-100%); /* Изначально скрытое меню */
+    transition: transform 0.3s ease; /* Плавное появление и исчезновение меню */
+    z-index: 999999; /* На заднем плане */
+  }
+
+  .open {
+    transform: translateX(0); /* Показать меню */
+  }
+
+  .closed {
+    box-shadow: none;
+  }
+
+  .nav_list {
+    flex-direction: column; /* Вертикальное расположение пунктов меню */
+    align-items: flex-start; /* Выравнивание по левому краю */
+    gap: 20px; /* Отступы между пунктами меню */
+  }
 }

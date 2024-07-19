@@ -257,9 +257,19 @@
 .price {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   gap: 22px;
+}
+
+.price_item {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.price span {
+  color: #f77523;
 }
 
 .price p {

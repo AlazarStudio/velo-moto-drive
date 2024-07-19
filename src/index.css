@@ -24,7 +24,7 @@ a {
 }
 
 p {
-    word-break: break-all;
+    word-break: break-word;
 }
 
 body {
@@ -44,3 +44,9 @@ main {
 /* * {
     outline: 1px solid rgba(21, 255, 4, 0.6);
 } */
+
+@media (max-width: 1299px) {
+    main {
+        margin-top: 70px;
+    }
+}

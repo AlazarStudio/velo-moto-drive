@@ -13,9 +13,10 @@ function PopularProducts() {
 				<WidthBlock>
 					<PopularProductsHeader />
 					<div className={styles.cards_wrapper}>
-						{products.map((product, index) => (
-							<ProductCard key={index} {...product} />
-						)).reverse()}
+						{products
+							.slice(-9)
+							.map((product, index) => <ProductCard key={index} {...product} />)
+							.reverse()}
 					</div>
 				</WidthBlock>
 			</CenterBlock>

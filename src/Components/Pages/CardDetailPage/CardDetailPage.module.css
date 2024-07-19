@@ -33,6 +33,10 @@
   background-color: transparent;
 }
 
+.swiper_button_next {
+  margin-left: -2px;
+}
+
 /* .swiper_button_prev {}
 
 .swiper_button_next {} */
@@ -63,7 +67,7 @@
 
 .swiper_buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .product_buy_banner {

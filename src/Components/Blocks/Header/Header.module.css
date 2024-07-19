@@ -5,8 +5,6 @@
   background-color: #545454;
 }
 
-
-
 .nav_icons {
   display: flex;
   align-items: center;
@@ -16,4 +14,23 @@
 .nav_icons img {
   width: fit-content;
   height: fit-content;
+}
+
+@media (max-width: 1299px) {
+  .header {
+    min-height: 70px;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .nav_icons {
+    position: absolute;
+    right: 20px;
+    top: 23px;
+  }
 }

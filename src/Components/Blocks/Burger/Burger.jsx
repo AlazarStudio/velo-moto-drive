@@ -1,47 +1,67 @@
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './Burger.module.css';
 
-import Text from '../../Standart/Text/Text'
+function Burger() {
+	const [isOpen, setIsOpen] = useState(false);
+	const menuRef = useRef(null);
 
-import classes from './Burger.module.css'
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
+	};
 
-function Burger({ children, ...props }) {
-	const textProps = {
-		font_size: '16px',
-		line_height: '19.5px',
-		color: 'white',
-		font_weight: '500'
-	}
+	const handleClickOutside = (event) => {
+		if (menuRef.current && !menuRef.current.contains(event.target)) {
+			setIsOpen(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
 	return (
-		<nav className={classes.nav}>
-			<ul className={classes.nav_list}>
-				<li>
-					<Link to='/'>
-						<Text {...textProps}>ГЛАВНАЯ</Text>
-					</Link>
-				</li>
-				<li>
-					<Link to='/catalog'>
-						<Text {...textProps}>КАТАЛОГ</Text>
-					</Link>
-				</li>
-				<li>
-					<Link to='/delivery'>
-						<Text {...textProps}>ДОСТАВКА</Text>
-					</Link>
-				</li>
-				<li>
-					<Link to='/?section=about_us'>
-						<Text {...textProps}>О НАС</Text>
-					</Link>
-				</li>
-				<li>
-					<Link to='/?section=contacts'>
-						<Text {...textProps}>КОНТАКТЫ</Text>
-					</Link>
-				</li>
-			</ul>
-		</nav>
-	)
+		<>
+			<div className={styles.burger_icon} onClick={toggleMenu}>
+				&#9776;
+			</div>
+			<nav
+				ref={menuRef}
+				className={`${styles.nav} ${isOpen ? styles.open : styles.closed}`}
+			>
+				<ul className={styles.nav_list}>
+					<li>
+						<Link to='/' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>ГЛАВНАЯ</p>
+						</Link>
+					</li>
+					<li>
+						<Link to='/catalog' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>КАТАЛОГ</p>
+						</Link>
+					</li>
+					<li>
+						<Link to='/delivery' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>ДОСТАВКА</p>
+						</Link>
+					</li>
+					<li>
+						<Link to='/?section=about_us' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>О НАС</p>
+						</Link>
+					</li>
+					<li>
+						<Link to='/?section=contacts' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>КОНТАКТЫ</p>
+						</Link>
+					</li>
+				</ul>
+			</nav>
+		</>
+	);
 }
 
-export default Burger
+export default Burger;
