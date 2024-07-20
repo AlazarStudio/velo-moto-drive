@@ -8,3 +8,46 @@
   flex-wrap: wrap;
   gap: 45px;
 }
+
+.popular_products__btn {
+  display: none;
+}
+
+.popular_products__btn a  {
+  display: none;
+}
+
+@media (max-width: 1299px) {
+  .popular_products {
+    padding: 20px 0 20px;
+    background-color: #eee;
+  }
+  
+  .cards_wrapper {
+    padding-inline: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .popular_products__btn {
+    display: flex;
+    justify-content: center;
+  }
+
+  .popular_products__btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    font-size: 14px;
+    line-height: 16px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+  }
+}

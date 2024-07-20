@@ -1,264 +1,317 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
+import { useEffect, useState } from 'react'
+import Loader from 'react-js-loader'
+import { useParams } from 'react-router-dom'
 
-import { products } from '../../../data'; // Assuming this is your full product list
-import Filter from '../../Blocks/Filter/Filter';
-import ProductCard from '../../Blocks/ProductCard/ProductCard';
-import CenterBlock from '../../Standart/CenterBlock/CenterBlock';
-import WidthBlock from '../../Standart/WidthBlock/WidthBlock';
-import Loader from 'react-js-loader'; // Importing your Loader component
+import { products } from '../../../data'
+import Filter from '../../Blocks/Filter/Filter'
+import ProductCard from '../../Blocks/ProductCard/ProductCard'
+import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
+import WidthBlock from '../../Standart/WidthBlock/WidthBlock'
 
-import styles from './CatalogPage.module.css';
-
-const ITEMS_PER_PAGE = 9;
+import styles from './CatalogPage.module.css'
 
 function CatalogPage() {
-    const { id } = useParams();
-    let typeData = id ? id : '';
+	const { id } = useParams()
 
-    typeData = typeData === 'bike' ? 'Велосипеды' :
-        typeData === 'mopeds' ? 'Мопеды' :
-        typeData === 'scooters' ? 'Самокаты' :
-        typeData === 'atvs' ? 'Квадроциклы' : '';
+	let typeData = id ? id : ''
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filterData, setFilterData] = useState({
-        reset: '',
-        model: '',
-        type: '',
-        ageGroup: '',
-        gender: '',
-        brakes: '',
-        amor: '',
-        material: '',
-        color: ''
-    });
-    const [selectedType, setSelectedType] = useState(typeData);
-    const [selectedColor, setSelectedColor] = useState('');
-    const [sortOrder, setSortOrder] = useState('');
-    const [speedRange, setSpeedRange] = useState([1, 27]);
-    const [wheelSizeRange, setWheelSizeRange] = useState([12, 29]);
-    const [frameSizeRange, setFrameSizeRange] = useState([13, 23]);
-    const [visibleProducts, setVisibleProducts] = useState([]);
-    const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const { ref, inView } = useInView({
-        threshold: 1,
-        triggerOnce: false
-    });
+	typeData =
+		typeData === 'bike'
+			? 'Велосипеды'
+			: typeData === 'mopeds'
+				? 'Мопеды'
+				: typeData === 'scooters'
+					? 'Самокаты'
+					: typeData === 'atvs'
+						? 'Квадроциклы'
+						: ''
 
-    useEffect(() => {
-        if (inView && hasMore) {
-            loadMoreProducts();
-        }
-    }, [inView, hasMore]);
+	const [searchQuery, setSearchQuery] = useState('')
+	const [filterData, setFilterData] = useState({
+		reset: '',
+		model: '',
+		type: '',
+		ageGroup: '',
+		gender: '',
+		brakes: '',
+		amor: '',
+		material: '',
+		color: ''
+	})
 
-    useEffect(() => {
-        setPage(1);
-        setVisibleProducts([]);
-        setHasMore(true);
-    }, [searchQuery, filterData, selectedType, selectedColor, sortOrder]);
+	const [selectedType, setSelectedType] = useState(typeData)
+	const [selectedColor, setSelectedColor] = useState('')
+	const [sortOrder, setSortOrder] = useState('')
+	const [speedRange, setSpeedRange] = useState([1, 27])
+	const [wheelSizeRange, setWheelSizeRange] = useState([12, 29])
+	const [frameSizeRange, setFrameSizeRange] = useState([13, 23])
 
-    const loadMoreProducts = () => {
-        setLoading(true);
-        // Calculate the starting and ending index for the current page
-        const startIndex = (page - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
+	const [currentPage, setCurrentPage] = useState(1)
+	const [itemsPerPage] = useState(9)
+	const [loading, setLoading] = useState(false)
 
-        // Apply filtering and sorting
-        const filteredProducts = products.filter(request => {
-            const speed = parseInt(request.speed, 10);
-            const wheelSize = parseInt(request.wheelsSize, 10);
-            const frameSize = parseInt(request.frameGrowth, 10);
+	// Сброс страницы при изменении фильтров
+	useEffect(() => {
+		setCurrentPage(1)
+	}, [
+		filterData,
+		searchQuery,
+		selectedType,
+		selectedColor,
+		sortOrder,
+		speedRange,
+		wheelSizeRange,
+		frameSizeRange
+	])
 
-            const matchesSearchQuery = searchQuery === '' || (
-                request.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                request.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                request.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                request.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                request.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                request.frameMaterial.toLowerCase().includes(searchQuery.toLowerCase())
-            );
+	const resetForm = () => {
+		setFilterData({
+			reset: '',
+			model: '',
+			type: '',
+			ageGroup: '',
+			gender: '',
+			brakes: '',
+			amor: '',
+			material: '',
+			color: ''
+		})
+		setSelectedType('')
+		setSelectedColor('')
+		setSortOrder('')
+		setSearchQuery('')
+	}
 
-            return (
-                matchesSearchQuery &&
-                (selectedType === '' || request.type.toLowerCase().includes(selectedType.toLowerCase())) &&
-                (filterData.type === '' || request.category.toLowerCase().includes(filterData.type.toLowerCase())) &&
-                (filterData.model === '' || request.name.toLowerCase().includes(filterData.model.toLowerCase())) &&
-                (filterData.brakes === '' || request.brakes.toLowerCase().includes(filterData.brakes.toLowerCase())) &&
-                (filterData.ageGroup === '' || request.ageGroup.toLowerCase().includes(filterData.ageGroup.toLowerCase())) &&
-                (filterData.gender === '' || request.gender.toLowerCase().includes(filterData.gender.toLowerCase())) &&
-                (filterData.amor === '' || request.amor.toLowerCase().includes(filterData.amor.toLowerCase())) &&
-                (filterData.material === '' || request.frameMaterial.toLowerCase().includes(filterData.material.toLowerCase())) &&
-                (filterData.color === '' || request.color.toLowerCase().includes(filterData.color.toLowerCase())) &&
-                speed >= speedRange[0] &&
-                speed <= speedRange[1] &&
-                wheelSize >= wheelSizeRange[0] &&
-                wheelSize <= wheelSizeRange[1] &&
-                frameSize >= frameSizeRange[0] &&
-                frameSize <= frameSizeRange[1]
-            );
-        });
+	const handleSearchChange = event => {
+		setSearchQuery(event.target.value)
+	}
 
-        // Sort products by price
-        filteredProducts.sort((a, b) => {
-            const priceA = a.currentPrice;
-            const priceB = b.currentPrice;
-            if (sortOrder === 'asc') {
-                return priceA - priceB;
-            } else if (sortOrder === 'desc') {
-                return priceB - priceA;
-            }
-            return 0;
-        });
+	const handleChange = e => {
+		const { name, value } = e.target
+		setFilterData(prevState => ({
+			...prevState,
+			[name]: value
+		}))
+	}
 
-        // Get the products for the current page
-        const newProducts = filteredProducts.slice(0, endIndex);
+	const handleVeloTypeClick = type => {
+		setSelectedType(type)
+		let newType = ''
 
-        setVisibleProducts(newProducts);
-        setPage(prevPage => prevPage + 1);
-        setHasMore(newProducts.length < filteredProducts.length);
-        setLoading(false);
-    };
+		switch (type) {
+			case 'Велосипеды':
+			case 'Мопеды':
+			case 'Самокаты':
+			case 'Квадроциклы':
+			case 'Мотоциклы':
+				newType = ''
+				break
+			default:
+				newType = type
+				break
+		}
 
-    const resetForm = () => {
-        setFilterData({
-            reset: '',
-            model: '',
-            type: '',
-            ageGroup: '',
-            gender: '',
-            brakes: '',
-            amor: '',
-            material: '',
-            color: ''
-        });
-        setSelectedType('');
-        setSelectedColor('');
-        setSortOrder('');
-        setSearchQuery('');
-    };
+		setFilterData(prevState => ({
+			...prevState,
+			type: newType
+		}))
+	}
 
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-    };
+	const handleColorChange = color => {
+		setSelectedColor(color)
+		setFilterData(prevState => ({
+			...prevState,
+			color
+		}))
+	}
 
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setFilterData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+	const handleSpeedChange = newValue => {
+		setSpeedRange(newValue)
+	}
 
-    const handleVeloTypeClick = type => {
-        setSelectedType(type);
-        let newType = '';
+	const handleWheelSizeChange = newValue => {
+		setWheelSizeRange(newValue)
+	}
 
-        switch (type) {
-            case 'Велосипеды':
-            case 'Мопеды':
-            case 'Самокаты':
-            case 'Квадроциклы':
-            case 'Мотоциклы':
-                newType = '';
-                break;
-            default:
-                newType = type;
-                break;
-        }
+	const handleFrameSizeChange = newValue => {
+		setFrameSizeRange(newValue)
+	}
 
-        setFilterData(prevState => ({
-            ...prevState,
-            type: newType
-        }));
-    };
+	// Фильтрация продуктов
+	const filteredProducts = products.filter(request => {
+		const speed = parseInt(request.speed, 10)
+		const wheelSize = parseInt(request.wheelsSize, 10)
+		const frameSize = parseInt(request.frameGrowth, 10)
 
-    const handleColorChange = color => {
-        setSelectedColor(color);
-        setFilterData(prevState => ({
-            ...prevState,
-            color
-        }));
-    };
+		const matchesSearchQuery =
+			searchQuery === '' ||
+			request.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.frameMaterial.toLowerCase().includes(searchQuery.toLowerCase())
 
-    const handleSpeedChange = newValue => {
-        setSpeedRange(newValue);
-    };
+		return (
+			matchesSearchQuery &&
+			(selectedType === '' ||
+				request.type.toLowerCase().includes(selectedType.toLowerCase())) &&
+			(filterData.type === '' ||
+				request.category
+					.toLowerCase()
+					.includes(filterData.type.toLowerCase())) &&
+			(filterData.model === '' ||
+				request.name.toLowerCase().includes(filterData.model.toLowerCase())) &&
+			(filterData.brakes === '' ||
+				request.brakes
+					.toLowerCase()
+					.includes(filterData.brakes.toLowerCase())) &&
+			(filterData.ageGroup === '' ||
+				request.ageGroup
+					.toLowerCase()
+					.includes(filterData.ageGroup.toLowerCase())) &&
+			(filterData.gender === '' ||
+				request.gender
+					.toLowerCase()
+					.includes(filterData.gender.toLowerCase())) &&
+			(filterData.amor === '' ||
+				request.amor.toLowerCase().includes(filterData.amor.toLowerCase())) &&
+			(filterData.material === '' ||
+				request.frameMaterial
+					.toLowerCase()
+					.includes(filterData.material.toLowerCase())) &&
+			(filterData.color === '' ||
+				request.color.toLowerCase().includes(filterData.color.toLowerCase())) &&
+			speed >= speedRange[0] &&
+			speed <= speedRange[1] &&
+			wheelSize >= wheelSizeRange[0] &&
+			wheelSize <= wheelSizeRange[1] &&
+			frameSize >= frameSizeRange[0] &&
+			frameSize <= frameSizeRange[1]
+		)
+	})
 
-    const handleWheelSizeChange = newValue => {
-        setWheelSizeRange(newValue);
-    };
+	// Сортировка продуктов по цене
+	const sortedProducts = [...filteredProducts].sort((a, b) => {
+		const priceA = a.currentPrice
+		const priceB = b.currentPrice
+		if (sortOrder === 'asc') {
+			return priceA - priceB
+		} else if (sortOrder === 'desc') {
+			return priceB - priceA
+		}
+		return 0
+	})
 
-    const handleFrameSizeChange = newValue => {
-        setFrameSizeRange(newValue);
-    };
+	// Разбиение на страницы
+	const paginatedProducts = sortedProducts.slice(
+		(currentPage - 1) * itemsPerPage,
+		currentPage * itemsPerPage
+	)
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-    }, []);
+	const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
 
-    return (
-        <main>
-            <CenterBlock>
-                <WidthBlock>
-                    <div className={styles.search_container}>
-                        <input
-                            type='text'
-                            placeholder='Поиск...'
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                            className={styles.search_input}
-                        />
-                    </div>
+	const handlePageChange = pageNumber => {
+		setCurrentPage(pageNumber)
+		window.scrollTo({
+			top: 0, //px
+			behavior: 'smooth'
+		})
+	}
 
-                    <Filter
-                        handleChange={handleChange}
-                        filterData={filterData}
-                        selectedType={selectedType}
-                        selectedColor={selectedColor}
-                        handleVeloTypeClick={handleVeloTypeClick}
-                        resetForm={resetForm}
-                        handleColorChange={handleColorChange}
-                        sortOrder={sortOrder}
-                        setSortOrder={setSortOrder}
-                        speedRange={speedRange}
-                        handleSpeedChange={handleSpeedChange}
-                        wheelSizeRange={wheelSizeRange}
-                        handleWheelSizeChange={handleWheelSizeChange}
-                        frameSizeRange={frameSizeRange}
-                        handleFrameSizeChange={handleFrameSizeChange}
-                        productLength={visibleProducts.length}
-                    />
+	const handleSortOrderChange = e => {
+		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
+	}
 
-                    <div className={styles.cards_wrapper}>
-                        {visibleProducts.length > 0 ? (
-                            visibleProducts
-                                .map((product, index) => (
-                                    <ProductCard key={index} {...product} />
-                                ))
-                        ) : (
-                            <p className={styles.no_results}>
-                                Нет товаров, соответствующих выбранным фильтрам.
-                            </p>
-                        )}
-                    </div>
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'instant' })
+	}, [])
 
-                    {/* Loader Component */}
-                    {loading && (
-                        <div className={styles.loader_container}>
-                            <Loader type='spinner-circle' bgColor={'#f77523'} size={128} />
-                        </div>
-                    )}
+	return (
+		<main>
+			<CenterBlock>
+				<WidthBlock>
+					<div className={styles.search_container}>
+						<input
+							type='text'
+							placeholder='Поиск...'
+							value={searchQuery}
+							onChange={handleSearchChange}
+							className={styles.search_input}
+						/>
+					</div>
 
-                    {/* Intersection Observer */}
-                    <div ref={ref} />
-                </WidthBlock>
-            </CenterBlock>
-        </main>
-    );
+					<Filter
+						handleChange={handleChange}
+						filterData={filterData}
+						selectedType={selectedType}
+						selectedColor={selectedColor}
+						handleVeloTypeClick={handleVeloTypeClick}
+						resetForm={resetForm}
+						handleColorChange={handleColorChange}
+						speedRange={speedRange}
+						handleSpeedChange={handleSpeedChange}
+						wheelSizeRange={wheelSizeRange}
+						handleWheelSizeChange={handleWheelSizeChange}
+						frameSizeRange={frameSizeRange}
+						handleFrameSizeChange={handleFrameSizeChange}
+					/>
+
+					<div className={styles.price}>
+						<p>
+							Количество товаров: <span>{sortedProducts.length}</span>
+						</p>
+
+						<div className={styles.price_item}>
+							<p>Цены</p>
+							<select
+								name='price'
+								className={styles.filter_price}
+								value={sortOrder}
+								onChange={handleSortOrderChange}
+							>
+								<option value='' disabled hidden defaultValue>
+									Сортировка
+								</option>
+								<option value='asc'>По возрастанию</option>
+								<option value='desc'>По убыванию</option>
+							</select>
+						</div>
+					</div>
+
+					<div className={styles.cards_wrapper}>
+						{paginatedProducts.length > 0 ? (
+							paginatedProducts.map((product, index) => (
+								<ProductCard key={index} {...product} />
+							))
+						) : (
+							<p className={styles.no_results}>
+								Нет товаров, соответствующих выбранным фильтрам.
+							</p>
+						)}
+					</div>
+
+					{loading && (
+						<div className={styles.loader}>
+							<Loader type='spinner-circle' bgColor={'#f77523'} size={128} />
+						</div>
+					)}
+
+					<div className={styles.pagination}>
+						{Array.from({ length: totalPages }, (_, index) => (
+							<button
+								key={index}
+								onClick={() => handlePageChange(index + 1)}
+								className={currentPage === index + 1 ? styles.active : ''}
+							>
+								{index + 1}
+							</button>
+						))}
+					</div>
+				</WidthBlock>
+			</CenterBlock>
+		</main>
+	)
 }
 
-export default CatalogPage;
+export default CatalogPage

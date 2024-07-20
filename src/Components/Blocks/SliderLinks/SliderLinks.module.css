@@ -17,3 +17,9 @@
 .slider_links li a:hover {
   border-bottom: 4px solid #f77532;
 }
+
+@media (max-width: 1299px) {
+  .slider_links {
+    display: none;
+  }
+}

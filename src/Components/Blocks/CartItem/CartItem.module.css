@@ -101,3 +101,125 @@
   flex-direction: column;
   gap: 0px;
 }
+
+@media (max-width: 1299px) {
+  .cart_item {
+    padding-bottom: 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+  }
+  
+  .cart_item__img_text {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  
+  .cart_item__img {
+    padding: 6px;
+    flex-basis: 48%;
+    width: 180px;
+    height: 120px;
+    overflow: hidden;
+    border: 1px solid #b4b4b4;
+    border-radius: 20px;
+  }
+  
+  .cart_item__check_box___wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart_item__check_box {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 1px solid #b4b4b4 !important;
+    border-radius: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .cart_item__check_box:checked {
+    background-color: #000;
+    border: 1px solid #000;
+  }
+  
+  .cart_item__check_box:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -62%) rotate(45deg);
+    transform-origin: center center;
+  }
+  
+  .cart_item__info {
+    flex-basis: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .cart_item__btn {
+    position: absolute;
+    bottom: 9px;
+    left: 2px;
+    width: 107px;
+    padding: 10px;
+    border: 1px solid #8c8c8c !important;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #8c8c8c;
+    font-size: 16px;
+    line-height: 19.5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .cart_item__btn:hover {
+    background-color: #8c8c8c;
+    color: #fff;
+  }
+  
+  .cart_item__info___text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: right;
+  }
+  
+  .cart_item__info_primary {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: right;
+  }
+  
+  .cart_item__info_secondary {
+    font-size: 14px;
+    line-height: 16.8px;
+    color: #8c8c8c;
+  }
+  
+  
+  .cart_item__price {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0px;
+  }
+}

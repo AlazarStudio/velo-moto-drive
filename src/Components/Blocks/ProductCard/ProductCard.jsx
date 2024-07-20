@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Button from '../../Standart/Button/Button'
-
 import styles from './ProductCard.module.css'
 
 function ProductCard({ onClick, ...props }) {

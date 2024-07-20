@@ -1,5 +1,5 @@
 .cards_wrapper {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
   gap: 45px;
@@ -33,4 +33,105 @@
   border-radius: 10px;
   font-size: 14px;
   outline: none;
+}
+
+.pagination {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pagination button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  outline: none;
+  color: #000;
+  background-color: transparent;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.price {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+}
+
+.price_item {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.price span {
+  color: #f77523;
+}
+
+.price p {
+  font-size: 16px;
+  line-height: 19.5px;
+  font-weight: 500;
+}
+
+.filter_price {
+  height: fit-content;
+  padding: 10px 15px;
+  flex-basis: 15%;
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  font-size: 16px;
+  line-height: 19.5px;
+  cursor: pointer;
+}
+
+.filter_price option {
+  font-size: 16px;
+  line-height: 19.5px;
+}
+
+
+.filter_price:focus {
+  border: none;
+  outline: none;
+}
+
+.filter_price:active {
+  border: none;
+  outline: none;
+}
+
+@media (max-width: 1299px) {
+  .cards_wrapper {
+    margin-bottom: 30px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .price {
+    padding-right: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .search_container {
+    padding-inline: 16px;
+  }
 }

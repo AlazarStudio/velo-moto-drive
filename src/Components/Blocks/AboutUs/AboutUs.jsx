@@ -17,10 +17,10 @@ function AboutUs({ id }) {
 				</WidthBlock>
 			</header>
 			<div className={styles.about_us__wrapper}>
-				<WidthBlock style={{ height: '100%', justifyContent: 'end' }}>
+				<WidthBlock>
 					<p className={styles.about_us__text}>
 						Мы рады представить вам наш магазин{' '}
-						<span style={{ color: '#f77532' }}>Вело & Мото Drive</span>, который
+						<span style={{ color: '#f77532' , display:'contents'}}>Вело & Мото Drive</span>, который
 						является официальным региональным дилером качественных товаров для
 						активного отдыха и спорта в КЧР. Наша команда профессионалов
 						заботится о вашем комфорте и безопасности, предлагая широкий выбор

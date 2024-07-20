@@ -8,7 +8,7 @@ function PopularProductsHeader() {
 	return (
 		<header className={styles.popular_products__header}>
 			<div className={styles.popular_products__header__item}>
-				<p className={styles.popular_products__title} style={{ color: '#eee' }}>
+				<p className={styles.popular_products__title}>
 					ПОПУЛЯРНЫЕ
 				</p>
 				<div className={styles.popular_products__btn}>

@@ -1,6 +1,5 @@
 .about_us {
   padding-top: 110px;
-  /* background-color: #eee; */
 }
 
 .about_us__wrapper {
@@ -13,7 +12,10 @@
 }
 
 .about_us__text {
+  display: flex;
+  align-items: end;
   padding-bottom: 60px;
+  height: 100%;
   width: 878px;
   font-size: 20px;
   line-height: 32px;
@@ -79,4 +81,62 @@
 .about_us__header___title____content {
   position: absolute;
   right: 0;
+}
+
+@media (max-width: 1299px) {
+  .about_us {
+    padding-top: 50px;
+  }
+
+  .about_us__wrapper {
+    background: url('/images/about_us_bg_img.png') no-repeat;
+    height: fit-content;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: right;
+  }
+
+  .about_us__text {
+    display: flex;
+    align-items: start;
+    padding: 100px 24px 50px 24px;
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: justify;
+  }
+
+  .about_us__header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about_us__header___img {
+    display: none;
+  }
+
+  .about_us__header___title {
+    color: #000;
+    text-align: center;
+    font-size: 70px;
+    line-height: 49px;
+    text-shadow: none;
+    position: relative;
+  }
+
+  .about_us__header___title::after {
+    top: 65%;
+    right: 92px;
+    color: #000;
+    text-align: right;
+    line-height: normal;
+    opacity: 0.6;
+  }
+
+  .about_us__header___title____content {
+    position: absolute;
+    right: 0;
+  }
 }

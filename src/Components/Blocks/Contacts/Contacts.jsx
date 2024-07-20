@@ -11,16 +11,9 @@ function Contacts({ id }) {
 			<p className={styles.contacts_title} id={id}>
 				КОНТАКТЫ
 			</p>
-			<section className={styles.contacts_wrapper}>
-				<CenterBlock>
-					<WidthBlock
-						style={{
-							flexDirection: 'row',
-							flexWrap: 'wrap',
-							gap: '0',
-							justifyContent: 'space-between'
-						}}
-					>
+			<CenterBlock>
+				<WidthBlock>
+					<section className={styles.contacts_wrapper}>
 						<Contact
 							img={'/images/contacts_phone.png'}
 							title={'ТЕЛЕФОН'}
@@ -38,10 +31,10 @@ function Contacts({ id }) {
 						>
 							Проложить маршрут
 						</a>
-					</WidthBlock>
-				</CenterBlock>
-				<YandexMap />
-			</section>
+					</section>
+				</WidthBlock>
+			</CenterBlock>
+			<YandexMap />
 		</>
 	)
 }

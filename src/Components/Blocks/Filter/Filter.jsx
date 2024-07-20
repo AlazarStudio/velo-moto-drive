@@ -15,15 +15,12 @@ function Filter({
 	handleVeloTypeClick,
 	resetForm,
 	handleColorChange,
-	sortOrder,
-	setSortOrder,
 	speedRange,
-  handleSpeedChange,
-  wheelSizeRange,
-  handleWheelSizeChange,
-  frameSizeRange,
-  handleFrameSizeChange,
-	productLength
+	handleSpeedChange,
+	wheelSizeRange,
+	handleWheelSizeChange,
+	frameSizeRange,
+	handleFrameSizeChange
 }) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const dropdownRef = useRef(null)
@@ -59,11 +56,6 @@ function Filter({
 		{ russian: 'Самокаты', english: 'scooters' },
 		{ russian: 'Квадроциклы', english: 'atvs' }
 	]
-
-	const handleSortOrderChange = e => {
-		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
-	}
-
 
 	const handleClickOutside = event => {
 		if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -266,25 +258,6 @@ function Filter({
 						max={23}
 						title={'Ростовка рамы'}
 					/>
-				</div>
-			</div>
-			<div className={styles.price}>
-				<p>Количество товаров: <span>{productLength}</span></p>
-
-				<div className={styles.price_item}>
-					<p>Цены</p>
-					<select
-						name='price'
-						className={styles.filter_price}
-						value={sortOrder}
-						onChange={handleSortOrderChange}
-					>
-						<option value='' disabled hidden defaultValue>
-							Сортировка
-						</option>
-						<option value='desc'>По возрастанию</option>
-						<option value='asc'>По убыванию</option>
-					</select>
 				</div>
 			</div>
 		</div>

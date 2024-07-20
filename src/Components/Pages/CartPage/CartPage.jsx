@@ -103,26 +103,28 @@ function CartPage({ children, ...props }) {
                   <p>Скидка</p>
                   <p> {formatNumber(-(originalPrice - totalPrice))} ₽</p>
                 </div>
-                <button className={styles.total_btn} type='submit'>
-                  ОФОРМИТЬ ЗАКАЗ
-                </button>
-                <div className={styles.check_box}>
-                  <div className={styles.check_box__wrapper}>
-                    <input
-                      className={styles.checkbox_round}
-                      required={true}
-                      type='checkbox'
-                      name=''
-                      id=''
-                    />
+                <form action="" style={{display:'flex', flexDirection:'column', gap:'12px'}}>
+                  <button className={styles.total_btn} type='reset'>
+                    ОФОРМИТЬ ЗАКАЗ
+                  </button>
+                  <div className={styles.check_box}>
+                    <div className={styles.check_box__wrapper}>
+                      <input
+                        className={styles.checkbox_round}
+                        required={true}
+                        type='checkbox'
+                        name=''
+                        id=''
+                      />
+                    </div>
+                    <p className={styles.check_box__text}>
+                      Согласен с условиями{' '}
+                      <a href='/' target='_blank' style={{ color: '#f77523' }}>
+                        Правил пользования торговой площадкой и правилами возврата
+                      </a>
+                    </p>
                   </div>
-                  <p className={styles.check_box__text}>
-                    Согласен с условиями{' '}
-                    <a href='/' target='_blank' style={{ color: '#f77523' }}>
-                      Правил пользования торговой площадкой и правилами возврата
-                    </a>
-                  </p>
-                </div>
+                </form>
               </div>
             </div>
           )}
