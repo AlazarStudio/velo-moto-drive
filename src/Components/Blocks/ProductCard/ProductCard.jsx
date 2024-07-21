@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import styles from './ProductCard.module.css'
 
 function ProductCard({ onClick, ...props }) {
 	const [isAddedToCart, setIsAddedToCart] = useState(false)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		// Проверяем, есть ли текущий товар в корзине при загрузке компонента
@@ -34,6 +35,12 @@ function ProductCard({ onClick, ...props }) {
 		}
 	}
 
+	const handleCartClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate('/shopping-cart');
+  };
+
 	return (
 		<Link
 			to={`/product/${props.linkName}`}
@@ -60,18 +67,18 @@ function ProductCard({ onClick, ...props }) {
 							textDecoration: 'line-through'
 						}}
 					>
-						{props.originalPrice} ₽
+						{props.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽
 					</p>
 				</div>
 				<div className={styles.card_text__item}>
 					<p className={styles.card_text__secondary}>{props.gender}</p>
-					<p className={styles.card_text__main}>{props.currentPrice} ₽</p>
+					<p className={styles.card_text__main}>{props.currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽</p>
 				</div>
 			</div>
 			{isAddedToCart ? (
-				<Link to={'/shopping-cart'} className={styles.add_to_cart}>
+				<button className={styles.add_to_cart} onClick={handleCartClick}>
 					<p>ДОБАВЛЕНО В КОРЗИНУ &#10148;</p>
-				</Link>
+				</button>
 			) : (
 				<button className={styles.add_to_cart} onClick={handleAddToCart}>
 					<img src='/images/add_to_cart.png' alt='' />

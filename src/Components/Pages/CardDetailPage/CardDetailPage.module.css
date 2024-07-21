@@ -1,3 +1,7 @@
+.back_button {
+  display: none;
+}
+
 .product_detail_wrapper {
   margin: 50px 0 50px 0;
   display: flex;
@@ -196,4 +200,146 @@
   display: flex;
   flex-wrap: wrap;
   gap: 45px;
+}
+
+.swiper_slide_sm {
+  height: 100%;
+}
+
+.similar_products_swiper {
+  padding: 20px 12px 0 12px;
+  height: 480px;
+  width: 100%;
+}
+
+@media (max-width: 1299px) {
+
+  .back_button {
+    margin-top: 10px;
+    padding-inline: 16px;
+    height: 0;
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+
+  .back_button img {
+    margin-top: 15px;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .back_button hr {
+    margin-top: 21.7px;
+    flex-basis: 80%;
+    border: 1px solid #000;
+  }
+
+  .product_detail_wrapper {
+    margin: 40px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .product_detail_title {
+    font-size: 24px;
+    line-height: 28px;
+    word-break: break-word;
+  }
+
+  .product_detail_swiper {
+    padding-inline: 16px;
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sliderBox {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+  }
+
+  .swiper_button_prev img,
+  .swiper_button_next  img{
+    width: 90%;
+    height: 90%;
+  }
+
+  .swiper_button_next {
+    margin-left: -10px;
+  }  
+
+  .product_buy_banner {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+    -moz-box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+    box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
+  }
+
+  .product_buy_item {
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 12px;
+  }
+
+  .discount {
+    font-size: 16px;
+    line-height: 18.88px;
+  }
+
+  .original_price {
+    font-size: 16px;
+    line-height: 18.88px;
+  }
+
+  .current_price {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .product_detail_info {
+    padding-inline: 16px;
+    margin-top: 30px;
+    flex-basis: 1000%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .product_description {
+    font-size: 14px;
+    line-height: 18px;
+    word-break: break-word;
+    text-align: justify;
+  }
+
+  .similar_products_title {
+    padding-left: 0;
+    padding-inline: 16px;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  
+  .similar_products_wrapper {
+    padding-inline: 16px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
 }

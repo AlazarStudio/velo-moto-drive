@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Loader from 'react-js-loader'
+import Modal from 'react-modal'
 import { useParams } from 'react-router-dom'
 
 import { products } from '../../../data'
@@ -9,6 +10,8 @@ import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
 import WidthBlock from '../../Standart/WidthBlock/WidthBlock'
 
 import styles from './CatalogPage.module.css'
+
+Modal.setAppElement('#root')
 
 function CatalogPage() {
 	const { id } = useParams()
@@ -49,6 +52,8 @@ function CatalogPage() {
 	const [currentPage, setCurrentPage] = useState(1)
 	const [itemsPerPage] = useState(9)
 	const [loading, setLoading] = useState(false)
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	// Сброс страницы при изменении фильтров
 	useEffect(() => {
@@ -223,6 +228,14 @@ function CatalogPage() {
 		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
 	}
 
+	const openModal = () => {
+		setIsModalOpen(true)
+	}
+
+	const closeModal = () => {
+		setIsModalOpen(false)
+	}
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'instant' })
 	}, [])
@@ -231,6 +244,8 @@ function CatalogPage() {
 		<main>
 			<CenterBlock>
 				<WidthBlock>
+					<p className={styles.catalog_title}>КАТАЛОГ</p>
+
 					<div className={styles.search_container}>
 						<input
 							type='text'
@@ -241,21 +256,55 @@ function CatalogPage() {
 						/>
 					</div>
 
-					<Filter
-						handleChange={handleChange}
-						filterData={filterData}
-						selectedType={selectedType}
-						selectedColor={selectedColor}
-						handleVeloTypeClick={handleVeloTypeClick}
-						resetForm={resetForm}
-						handleColorChange={handleColorChange}
-						speedRange={speedRange}
-						handleSpeedChange={handleSpeedChange}
-						wheelSizeRange={wheelSizeRange}
-						handleWheelSizeChange={handleWheelSizeChange}
-						frameSizeRange={frameSizeRange}
-						handleFrameSizeChange={handleFrameSizeChange}
-					/>
+					<div className={styles.mobile}>
+						<Filter
+							handleChange={handleChange}
+							filterData={filterData}
+							selectedType={selectedType}
+							selectedColor={selectedColor}
+							handleVeloTypeClick={handleVeloTypeClick}
+							resetForm={resetForm}
+							handleColorChange={handleColorChange}
+							speedRange={speedRange}
+							handleSpeedChange={handleSpeedChange}
+							wheelSizeRange={wheelSizeRange}
+							handleWheelSizeChange={handleWheelSizeChange}
+							frameSizeRange={frameSizeRange}
+							handleFrameSizeChange={handleFrameSizeChange}
+						/>
+					</div>
+
+					<button className={styles.filterButton} onClick={openModal}>
+						Фильтр <img src='/images/filter_mobile.png' alt='' />
+					</button>
+					<Modal
+						isOpen={isModalOpen}
+						onRequestClose={closeModal}
+						contentLabel='Filter Modal'
+						className={styles.modal}
+						overlayClassName={styles.overlay}
+					>
+						<p className={styles.filter_title}>ФИЛЬТР</p>
+						<Filter
+							handleChange={handleChange}
+							filterData={filterData}
+							selectedType={selectedType}
+							selectedColor={selectedColor}
+							handleVeloTypeClick={handleVeloTypeClick}
+							resetForm={resetForm}
+							handleColorChange={handleColorChange}
+							speedRange={speedRange}
+							handleSpeedChange={handleSpeedChange}
+							wheelSizeRange={wheelSizeRange}
+							handleWheelSizeChange={handleWheelSizeChange}
+							frameSizeRange={frameSizeRange}
+							handleFrameSizeChange={handleFrameSizeChange}
+							mobileReset={closeModal}
+						/>
+						<button onClick={closeModal} className={styles.apply_filters}>
+							Применить фильтр
+						</button>
+					</Modal>
 
 					<div className={styles.price}>
 						<p>

@@ -50,7 +50,7 @@ function CartItem({ onChange, onDelete, isChecked: initialChecked, ...props }) {
         </div>
       </div>
       <div className={styles.cart_item__price}>
-        <p className={styles.cart_item__info_primary}>{props.currentPrice} ₽</p>
+        <p className={styles.cart_item__info_primary}>{props.currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽</p>
         <p
           className={styles.cart_item__info_secondary}
           style={{
@@ -58,7 +58,7 @@ function CartItem({ onChange, onDelete, isChecked: initialChecked, ...props }) {
             textDecoration: 'line-through'
           }}
         >
-          {props.originalPrice} ₽
+          {props.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽
         </p>
       </div>
     </div>

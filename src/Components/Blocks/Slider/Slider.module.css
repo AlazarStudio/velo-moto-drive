@@ -59,7 +59,7 @@
 
   .swiper_button_prev {
     position: absolute;
-    top: 63%;
+    top: 63.04%;
     transform: translateY(-50%);
     left: auto;
     right: 52%;
@@ -67,10 +67,10 @@
 
   .swiper_button_next {
     position: absolute;
-    top: 63%;
+    top: 62.9%;
     transform: translateY(-50%);
     left: auto;
-    right: 35%;
+    right: 36%;
   }
 
   .swiper_slide img {

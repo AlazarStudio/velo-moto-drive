@@ -20,7 +20,8 @@ function Filter({
 	wheelSizeRange,
 	handleWheelSizeChange,
 	frameSizeRange,
-	handleFrameSizeChange
+	handleFrameSizeChange,
+	mobileReset
 }) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const dropdownRef = useRef(null)
@@ -89,7 +90,13 @@ function Filter({
 					</Link>
 				))}
 			</ul>
-			<Button to='/catalog' onClick={handleResetFilters}>
+			<Button to='/catalog' onClick={handleResetFilters} className={styles.pc_reset}>
+				Сбросить фильтр
+			</Button>
+			<Button to='/catalog' onClick={() => {
+				handleResetFilters()
+				mobileReset()
+			}} className={styles.mobile_reset}>
 				Сбросить фильтр
 			</Button>
 			<select

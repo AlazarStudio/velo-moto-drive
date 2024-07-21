@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import Loader from 'react-js-loader'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { products } from '../../../data'
@@ -25,6 +27,8 @@ function CardDetailPage() {
 	const [isExpanded, setIsExpanded] = useState(false)
 
 	const [isAddedToCart, setIsAddedToCart] = useState(false)
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		// Проверяем, есть ли текущий товар в корзине при загрузке компонента
@@ -78,7 +82,13 @@ function CardDetailPage() {
 					</div>
 				) : (
 					<CenterBlock>
-						<WidthBlock style={{ gap: '50px' }}>
+						<WidthBlock>
+							<button
+								className={styles.back_button}
+								onClick={() => navigate(-1)} // Переход на предыдущую страницу
+							>
+								<img src='/images/back_arrow.png' alt='&larr;' /> <hr />
+							</button>
 							<div className={styles.product_detail_wrapper}>
 								<div className={styles.product_detail_swiper}>
 									<p className={styles.product_detail_title}>{product.name}</p>
@@ -117,18 +127,21 @@ function CardDetailPage() {
 												СКИДКА: {product.discount}
 											</p>
 											<p className={styles.original_price}>
-												{product.originalPrice} ₽
+												{product.originalPrice
+													.toString()
+													.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+												₽
 											</p>
 											<p className={styles.current_price}>
-												{product.currentPrice} ₽
+												{product.currentPrice
+													.toString()
+													.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+												₽
 											</p>
 										</div>
 										<div className={styles.product_buy_item}>
 											{isAddedToCart ? (
-												<Link
-													to={'/shopping-cart'}
-													className={styles.buy_btn}
-												>
+												<Link to={'/shopping-cart'} className={styles.buy_btn}>
 													<p>ДОБАВЛЕНО В КОРЗИНУ &#10148;</p>
 												</Link>
 											) : (
@@ -184,19 +197,39 @@ function CardDetailPage() {
 							</div>
 							<p className={styles.similar_products_title}>ПОХОЖИЕ ТОВАРЫ</p>
 							<div className={styles.similar_products_wrapper}>
-								{products
-									.filter(
-										productFromDb =>
-											productFromDb.name !== product.name
-									)
-									.slice(-3)
-									.map((productFromDb, index) => (
-										<ProductCard
-											key={index}
-											{...productFromDb}
-											onClick={handleCardClick}
-										/>
-									))}
+								<Swiper
+									className={styles.similar_products_swiper}
+									slidesPerView={3}
+									spaceBetween={20}
+									pagination={{ clickable: true }}
+									breakpoints={{
+										0: {
+											slidesPerView: 1
+										},
+
+										1299: {
+											slidesPerView: 3
+										}
+									}}
+									modules={[Pagination]}
+								>
+									{products
+										.filter(
+											productFromDb => productFromDb.name !== product.name
+										)
+										.slice(-3)
+										.map((productFromDb, index) => (
+											<SwiperSlide
+												key={index}
+												className={styles.swiper_slide_sm}
+											>
+												<ProductCard
+													{...productFromDb}
+													onClick={handleCardClick}
+												/>
+											</SwiperSlide>
+										))}
+								</Swiper>
 							</div>
 						</WidthBlock>
 					</CenterBlock>

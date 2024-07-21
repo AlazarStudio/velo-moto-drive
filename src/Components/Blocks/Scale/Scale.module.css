@@ -10,3 +10,11 @@
   position: absolute;
   top: -35px;
 }
+
+@media (max-width: 1299px) {
+  .scale_title {
+    font-size: 14px;
+    line-height: 16px;
+    top: -26px;
+  }
+}

@@ -14,15 +14,35 @@
     transition: all 0.3s ease-in-out;
 }
 
-.Button:hover{
+.Button:hover {
     background-color: #fff;
     color: #000;
 }
 
-.Button svg path{
+.Button svg path {
     transition: all 0.3s ease-in-out;
 }
 
-.Button:hover svg path{
+.Button:hover svg path {
     fill: #000;
+}
+
+@media (max-width: 1299px) {
+    
+    .Button {
+        transition: none;
+    }
+
+    .Button:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .Button svg path {
+        transition: none;
+    }
+
+    .Button:hover svg path {
+        fill: #fff;
+    }
 }

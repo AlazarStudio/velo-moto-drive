@@ -57,6 +57,10 @@
   color: #000;
 }
 
+.mobile_reset {
+  display: none !important;
+}
+
 /* .velo_types li {
   font-size: 16px;
   line-height: 19.5px;
@@ -256,12 +260,12 @@
 
 @media (max-width: 1299px) {
   .filter_wrapper {
-    padding-inline: 16px;
-    margin-top: 30px;
+    padding-inline: 0;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 34px;
+    gap: 25px;
     position: relative;
   }
   
@@ -269,21 +273,22 @@
     min-height: 60px;
     flex-basis: 100%;
     padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #f77523;
-    color: #f77523;
-    background-color: transparent;
     border-radius: 10px;
-    font-size: 16px;
-    line-height: 19.5px;
-    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
   }
   
   .filter_wrapper a:hover {
     background-color: #fff;
     color: #f77523;
+  }
+
+  .pc_reset {
+    display: none !important;
+  }
+
+  .mobile_reset {
+    display: flex !important;
   }
   
   
@@ -298,18 +303,16 @@
   
   .velo_types a {
     height: 40px;
-    flex-basis: 48%;
+    min-height: 40px;
+    flex-basis: 50%;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border: none;
     color: #000;
-    background-color: transparent;
-    border-radius: 0;
-    font-size: 16px;
-    line-height: 19.5px;
-    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
   }
   
   .velo_types a:hover {
@@ -329,17 +332,21 @@
     border: 1px solid #848484;
     border-radius: 10px;
     outline: none;
-    font-size: 16px;
-    line-height: 19.5px;
+    font-size: 14px;
+    line-height: 16px;
     cursor: pointer;
   }
   
   .filter_item option {
-    font-size: 16px;
-    line-height: 19.5px;
+    font-size: 14px;
+    line-height: 16px;
   }
   
-  
+  .custom_color_title {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
   .filter_item:focus {
     border: 1px solid #848484;
     outline: none;

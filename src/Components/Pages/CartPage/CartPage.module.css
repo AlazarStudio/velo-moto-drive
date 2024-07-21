@@ -92,6 +92,7 @@
 }
 
 .checkbox_round {
+  padding: 0 !important;
   width: 16px;
   height: 16px;
   background-color: white;
@@ -130,12 +131,151 @@
   color: #8c8c8c;
 }
 
+/* Примерный путь: CartPage.module.css */
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 50px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  max-width: 80%;
+}
+
+.modal_title {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 32px;
+  line-height: 47px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.modal_info {
+  font-size: 16px;
+  line-height: 18.88px;
+  font-weight: 400;
+}
+
+.overlay {
+  z-index: 9999999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.check_box_form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.check_box__wrapper_form {
+  flex-basis: 5%;
+}
+
+.checkbox_round_form {
+  padding: 0 !important;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #b4b4b4;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox_round_form:checked {
+  background-color: #f77523;
+  border: 1px solid #f77523;
+}
+
+.checkbox_round_form:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+  transform-origin: center center;
+}
+
+.check_box__text_form {
+  flex-basis: 92%;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #000;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal form input {
+  margin-bottom: 10px;
+  padding: 15px 27px;
+  outline: none;
+  border: 1px solid #8c8c8c;
+  border-radius: 10px;
+  font-size: 16px;
+
+}
+
+.submit_form_btn {
+  margin: 10px 100px;
+  padding: 20px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 19.5px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #f77523;
+  cursor: pointer;
+}
+
+.close_modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 0;
+  padding: 30px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
 @media (max-width: 1299px) {
   .empty_cart {
     font-size: 32px;
     line-height: 42vh;
   }
-  
+
   .cart_wrapper {
     margin: 30px 0 60px 0;
     display: flex;
@@ -143,7 +283,7 @@
     gap: 30px;
     justify-content: space-between;
   }
-  
+
   .cart {
     height: fit-content;
     padding: 20px;
@@ -157,16 +297,16 @@
     box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
   }
 
-  .cart :last-child{
+  .cart :last-child {
     border-bottom: none;
   }
-  
+
   .cart_title__wrapper {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .cart_title {
     padding-left: 0;
     font-size: 20px;
@@ -177,5 +317,78 @@
     margin-inline: 30px;
     padding: 35px;
   }
+
+
+  .modal {
+    padding: 20px;
+    width: 90%;
+    max-width: 90%;
+  }
   
+  .modal_title {
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .modal_info {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .check_box_form {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .check_box__wrapper_form {
+    flex-basis: 5%;
+  }
+  
+  
+  .check_box__text_form {
+    font-size: 12px;
+    line-height: 14px;
+    text-align: justify;
+  }
+  
+  .modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal form input {
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    outline: none;
+    border: 1px solid #8c8c8c;
+    border-radius: 10px;
+    font-size: 14px;
+  
+  }
+  
+  .submit_form_btn {
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  
+  .close_modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0;
+    padding: 30px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
 }

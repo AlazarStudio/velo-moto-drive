@@ -21,3 +21,23 @@
   line-height: 14px;
   color: #fff;
 }
+
+@media (max-width: 1299px) {
+  .product_detail__block___item {
+    height: 90px;
+    flex-basis: 23%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .item_name {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  
+  .item_value {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}

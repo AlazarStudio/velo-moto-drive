@@ -121,8 +121,8 @@
   .cart_item__img {
     padding: 6px;
     flex-basis: 48%;
-    width: 180px;
-    height: 120px;
+    width: fit-content;
+    height: fit-content;
     overflow: hidden;
     border: 1px solid #b4b4b4;
     border-radius: 20px;

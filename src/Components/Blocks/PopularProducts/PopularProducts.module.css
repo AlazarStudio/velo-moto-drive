@@ -50,4 +50,9 @@
     color: #000;
     cursor: pointer;
   }
+  
+  .popular_products__btn a:hover {
+    color: #000;
+    background-color: transparent;
+  }
 }
