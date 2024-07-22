@@ -83,12 +83,12 @@ function CardDetailPage() {
 				) : (
 					<CenterBlock>
 						<WidthBlock>
-							<button
+							<div
 								className={styles.back_button}
-								onClick={() => navigate(-1)} // Переход на предыдущую страницу
+								// onClick={() => navigate(-1)} // Переход на предыдущую страницу
 							>
-								<img src='/images/back_arrow.png' alt='&larr;' /> <hr />
-							</button>
+							<Link to='/'>Главная /</Link> <Link to='/catalog'>Каталог /</Link> {product.name}
+							</div>
 							<div className={styles.product_detail_wrapper}>
 								<div className={styles.product_detail_swiper}>
 									<p className={styles.product_detail_title}>{product.name}</p>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import Loader from 'react-js-loader'
 import Modal from 'react-modal'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { products } from '../../../data'
 import Filter from '../../Blocks/Filter/Filter'
@@ -15,9 +14,10 @@ Modal.setAppElement('#root')
 
 function CatalogPage() {
 	const { id } = useParams()
+	const location = useLocation()
+	const navigate = useNavigate()
 
 	let typeData = id ? id : ''
-
 	typeData =
 		typeData === 'bike'
 			? 'Велосипеды'
@@ -49,25 +49,20 @@ function CatalogPage() {
 	const [wheelSizeRange, setWheelSizeRange] = useState([12, 29])
 	const [frameSizeRange, setFrameSizeRange] = useState([13, 23])
 
-	const [currentPage, setCurrentPage] = useState(1)
-	const [itemsPerPage] = useState(9)
-	const [loading, setLoading] = useState(false)
-
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
-	// Сброс страницы при изменении фильтров
+	const query = new URLSearchParams(location.search)
+	const initialPage = parseInt(query.get('page')) || 1
+	const [currentPage, setCurrentPage] = useState(initialPage)
+	const [itemsPerPage] = useState(9)
+
 	useEffect(() => {
-		setCurrentPage(1)
-	}, [
-		filterData,
-		searchQuery,
-		selectedType,
-		selectedColor,
-		sortOrder,
-		speedRange,
-		wheelSizeRange,
-		frameSizeRange
-	])
+		setCurrentPage(initialPage)
+	}, [initialPage])
+
+	useEffect(() => {
+		navigate(`${location.pathname}?page=${currentPage}`, { replace: true })
+	}, [currentPage, navigate, location.pathname])
 
 	const resetForm = () => {
 		setFilterData({
@@ -85,10 +80,12 @@ function CatalogPage() {
 		setSelectedColor('')
 		setSortOrder('')
 		setSearchQuery('')
+		setCurrentPage(1)
 	}
 
 	const handleSearchChange = event => {
 		setSearchQuery(event.target.value)
+		setCurrentPage(1)
 	}
 
 	const handleChange = e => {
@@ -97,6 +94,7 @@ function CatalogPage() {
 			...prevState,
 			[name]: value
 		}))
+		setCurrentPage(1)
 	}
 
 	const handleVeloTypeClick = type => {
@@ -120,6 +118,7 @@ function CatalogPage() {
 			...prevState,
 			type: newType
 		}))
+		setCurrentPage(1)
 	}
 
 	const handleColorChange = color => {
@@ -128,21 +127,24 @@ function CatalogPage() {
 			...prevState,
 			color
 		}))
+		setCurrentPage(1)
 	}
 
 	const handleSpeedChange = newValue => {
 		setSpeedRange(newValue)
+		setCurrentPage(1)
 	}
 
 	const handleWheelSizeChange = newValue => {
 		setWheelSizeRange(newValue)
+		setCurrentPage(1)
 	}
 
 	const handleFrameSizeChange = newValue => {
 		setFrameSizeRange(newValue)
+		setCurrentPage(1)
 	}
 
-	// Фильтрация продуктов
 	const filteredProducts = products.filter(request => {
 		const speed = parseInt(request.speed, 10)
 		const wheelSize = parseInt(request.wheelsSize, 10)
@@ -196,7 +198,6 @@ function CatalogPage() {
 		)
 	})
 
-	// Сортировка продуктов по цене
 	const sortedProducts = [...filteredProducts].sort((a, b) => {
 		const priceA = a.currentPrice
 		const priceB = b.currentPrice
@@ -208,7 +209,6 @@ function CatalogPage() {
 		return 0
 	})
 
-	// Разбиение на страницы
 	const paginatedProducts = sortedProducts.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
@@ -219,13 +219,13 @@ function CatalogPage() {
 	const handlePageChange = pageNumber => {
 		setCurrentPage(pageNumber)
 		window.scrollTo({
-			top: 0, //px
+			top: 0,
 			behavior: 'smooth'
 		})
 	}
 
 	const handleSortOrderChange = e => {
-		setSortOrder(e.target.value) // Обновляем состояние порядка сортировки
+		setSortOrder(e.target.value)
 	}
 
 	const openModal = () => {
@@ -339,12 +339,6 @@ function CatalogPage() {
 							</p>
 						)}
 					</div>
-
-					{loading && (
-						<div className={styles.loader}>
-							<Loader type='spinner-circle' bgColor={'#f77523'} size={128} />
-						</div>
-					)}
 
 					<div className={styles.pagination}>
 						{Array.from({ length: totalPages }, (_, index) => (

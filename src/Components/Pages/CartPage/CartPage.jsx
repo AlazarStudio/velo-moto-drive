@@ -5,16 +5,22 @@ import CartItem from '../../Blocks/CartItem/CartItem'
 import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
 import WidthBlock from '../../Standart/WidthBlock/WidthBlock'
 
-// Импортируем react-modal
 import styles from './CartPage.module.css'
 
-Modal.setAppElement('#root') // Устанавливаем элемент приложения для правильной работы модального окна
+Modal.setAppElement('#root')
 
 function CartPage({ children, ...props }) {
 	const [cartItems, setCartItems] = useState([])
 	const [totalPrice, setTotalPrice] = useState(0)
 	const [originalPrice, setOriginalPrice] = useState(0)
-	const [isModalOpen, setIsModalOpen] = useState(false) // Состояние для управления модальным окном
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
+	const [formData, setFormData] = useState({
+		fullName: '',
+		phone: '',
+		email: ''
+	})
+	const [successMessage, setSuccessMessage] = useState('')
 
 	useEffect(() => {
 		const cartData = JSON.parse(localStorage.getItem('cart') || '[]')
@@ -41,13 +47,13 @@ function CartPage({ children, ...props }) {
 		setOriginalPrice(newOriginalPrice)
 	}
 
-	const handleCheckboxChange = (isChecked, itemName, itemPrice) => {
+	const handleCheckboxChange = (isChecked, itemName) => {
 		const updatedCartItems = cartItems.map(item =>
 			item.name === itemName ? { ...item, isChecked: isChecked } : item
 		)
 		setCartItems(updatedCartItems)
 		calculateTotals(updatedCartItems)
-		localStorage.setItem('cart', JSON.stringify(updatedCartItems)) // Update localStorage
+		localStorage.setItem('cart', JSON.stringify(updatedCartItems))
 	}
 
 	const handleDeleteItem = () => {
@@ -61,11 +67,81 @@ function CartPage({ children, ...props }) {
 	}
 
 	const handleOrderClick = () => {
-		setIsModalOpen(true) // Открыть модальное окно
+		setIsModalOpen(true)
 	}
 
 	const closeModal = () => {
-		setIsModalOpen(false) // Закрыть модальное окно
+		setIsModalOpen(false)
+	}
+
+	const closeSuccessModal = () => {
+		setIsSuccessModalOpen(false)
+	}
+
+	const handleChange = e => {
+		const { name, value } = e.target
+		setFormData(prevData => ({
+			...prevData,
+			[name]: value
+		}))
+	}
+
+	const handleSubmit = e => {
+		e.preventDefault()
+
+		const selectedItems = cartItems
+			.filter(item => item.isChecked)
+			.map(item => ({
+				name: item.name,
+				price: item.currentPrice,
+				type: item.type,
+				category: item.category,
+				color: item.color,
+				gender: item.gender,
+				ageGroup: item.ageGroup,
+				frameGrowth: item.frameGrowth,
+				speed: item.speed,
+				wheelsSize: item.wheelsSize
+			}))
+
+		const payload = {
+			...formData,
+			items: selectedItems
+		}
+
+		fetch('/mail/mail.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					setSuccessMessage('Сообщение успешно отправлено!')
+					setFormData({
+						fullName: '',
+						phone: '',
+						email: ''
+					})
+					setIsModalOpen(false)
+					setIsSuccessModalOpen(true)
+					clearSelectedItems()
+				} else {
+					console.error('Произошла ошибка:', data.message)
+				}
+			})
+			.catch(error => {
+				console.error('Произошла ошибка:', error)
+			})
+	}
+
+	const clearSelectedItems = () => {
+		const updatedCartItems = cartItems.filter(item => !item.isChecked)
+		setCartItems(updatedCartItems)
+		calculateTotals(updatedCartItems)
+		localStorage.setItem('cart', JSON.stringify(updatedCartItems))
 	}
 
 	return (
@@ -88,8 +164,8 @@ function CartPage({ children, ...props }) {
 										<CartItem
 											key={index}
 											isChecked={item.isChecked || false}
-											onChange={(isChecked, itemName, itemPrice) =>
-												handleCheckboxChange(isChecked, itemName, itemPrice)
+											onChange={(isChecked, itemName) =>
+												handleCheckboxChange(isChecked, itemName)
 											}
 											onDelete={handleDeleteItem}
 											img={item.img[0]}
@@ -126,23 +202,6 @@ function CartPage({ children, ...props }) {
 								>
 									ОФОРМИТЬ ЗАКАЗ
 								</button>
-								<div className={styles.check_box}>
-									<div className={styles.check_box__wrapper}>
-										<input
-											className={styles.checkbox_round}
-											required={true}
-											type='checkbox'
-											name=''
-											id=''
-										/>
-									</div>
-									<p className={styles.check_box__text}>
-										Согласен с условиями{' '}
-										<a href='/' target='_blank' style={{ color: '#f77523' }}>
-											Правил пользования торговой площадкой и правилами возврата
-										</a>
-									</p>
-								</div>
 							</div>
 						</div>
 					)}
@@ -161,10 +220,31 @@ function CartPage({ children, ...props }) {
 						дальнейшего уточнения деталей заказа и доставки.
 					</span>
 				</p>
-				<form>
-					<input type='text' name='fullName' placeholder='ФИО*' required />
-					<input type='tel' name='phone' placeholder='Телефон*' required />
-					<input type='email' name='email' placeholder='E-mail*' required />
+				<form onSubmit={handleSubmit}>
+					<input
+						type='text'
+						name='fullName'
+						placeholder='ФИО*'
+						value={formData.fullName}
+						onChange={handleChange}
+						required
+					/>
+					<input
+						type='tel'
+						name='phone'
+						placeholder='Телефон*'
+						value={formData.phone}
+						onChange={handleChange}
+						required
+					/>
+					<input
+						type='email'
+						name='email'
+						placeholder='E-mail*'
+						value={formData.email}
+						onChange={handleChange}
+						required
+					/>
 					<div className={styles.check_box_form}>
 						<div className={styles.check_box__wrapper_form}>
 							<input
@@ -191,6 +271,21 @@ function CartPage({ children, ...props }) {
 						X
 					</button>
 				</form>
+			</Modal>
+			<Modal
+				isOpen={isSuccessModalOpen}
+				onRequestClose={closeSuccessModal}
+				className={styles.modal}
+				overlayClassName={styles.overlay}
+			>
+				<p className={styles.success_message}>{successMessage}</p>
+				<button
+					type='button'
+					onClick={closeSuccessModal}
+					className={styles.close_modal}
+				>
+					X
+				</button>
 			</Modal>
 		</main>
 	)

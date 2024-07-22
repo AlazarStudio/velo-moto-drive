@@ -29,15 +29,16 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    text-align: center;
   }
   
   .item_name {
-    font-size: 22px;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: normal;
   }
   
   .item_value {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
   }
 }

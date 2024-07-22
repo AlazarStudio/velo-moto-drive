@@ -49,28 +49,42 @@
 
   .sliderBox {
     margin-top: 20px;
+    position: relative;
+  }
+
+  .slider_wrapper {
+    position: relative;
   }
 
   .swiper_button_prev,
   .swiper_button_next {
-    width: 60px;
-    height: fit-content;
+    width: 50px;
+    height: 43px;
   }
 
   .swiper_button_prev {
     position: absolute;
-    top: 63.04%;
+    top: auto;
+    bottom: -10px;
     transform: translateY(-50%);
     left: auto;
-    right: 52%;
+    right: 65px;
   }
 
   .swiper_button_next {
     position: absolute;
-    top: 62.9%;
+    top: auto;
+    bottom: -10px;
     transform: translateY(-50%);
     left: auto;
-    right: 36%;
+    right: 16px;
+  }
+
+  
+  .swiper_button_prev img,
+  .swiper_button_next img {
+    width: 100%;
+    height: 100%;
   }
 
   .swiper_slide img {

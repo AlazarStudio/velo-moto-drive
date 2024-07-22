@@ -34,9 +34,9 @@
 
   .nav {
     position: fixed; /* Закрепленное позиционирование */
-    top: 60px;
+    top: 70px;
     left: 0;
-    width: 200px; /* Ширина меню */
+    width: 180px; /* Ширина меню */
     height: fit-content; /* Высота меню на весь экран */
     background-color: #545454; /* Цвет фона меню */
     padding: 20px; /* Отступы внутри меню */
@@ -68,5 +68,6 @@
   
   .burger_item {
     width: 100%;
+    font-size: 14px;
   }
 }

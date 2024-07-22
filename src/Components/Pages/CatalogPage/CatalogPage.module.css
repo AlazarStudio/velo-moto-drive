@@ -127,6 +127,11 @@
     display: none;
   }
 
+  .no_results {
+    flex-basis: 100%;
+    font-size: 20px;
+  }
+
   .catalog_title {
     padding: 30px 16px 0 16px;
     display: block;
@@ -152,6 +157,7 @@
   }
 
   .cards_wrapper {
+    padding-inline: 16px;
     margin-bottom: 30px;
     margin-top: 20px;
     display: flex;
@@ -173,12 +179,26 @@
     gap: 22px;
   }
 
+  .price p {
+    font-size: 14px;
+  }
+
   .price_item {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0;
+  }
+
+  .filter_price {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .filter_price option {
+    font-size: 14px;
+    line-height: 16px;
   }
 
   .search_container {
@@ -192,7 +212,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 16px 24px;
+  padding: 16px;
   border-radius: 10px;
   outline: none;
   max-height: 90vh;

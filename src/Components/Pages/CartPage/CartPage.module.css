@@ -297,6 +297,12 @@
     box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.18);
   }
 
+  .check_box {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
   .cart :last-child {
     border-bottom: none;
   }

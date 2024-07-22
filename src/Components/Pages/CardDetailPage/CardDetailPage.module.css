@@ -1,9 +1,22 @@
 .back_button {
-  display: none;
+  margin-top: 30px;
+  text-align: start;
+  height: fit-content;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
 }
 
+.back_button a {
+  font-size: 14px;
+  color: #f77523;
+}
+
+
+
 .product_detail_wrapper {
-  margin: 50px 0 50px 0;
+  margin: 10px 0 50px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -215,30 +228,23 @@
 @media (max-width: 1299px) {
 
   .back_button {
-    margin-top: 10px;
     padding-inline: 16px;
-    height: 0;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 20px;
+    text-align: start;
+    height: fit-content;
     border: none;
     outline: none;
     background-color: transparent;
+    font-size: 12px;
   }
-
-  .back_button img {
-    margin-top: 15px;
-    width: fit-content;
-    height: fit-content;
-  }
-
-  .back_button hr {
-    margin-top: 21.7px;
-    flex-basis: 80%;
-    border: 1px solid #000;
+  
+  .back_button a {
+    font-size: 12px;
+    color: #f77523;
   }
 
   .product_detail_wrapper {
-    margin: 40px 0 30px 0;
+    margin: 10px 0 30px 0;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -265,14 +271,20 @@
     border-radius: 20px;
   }
 
+  .swiper_button_prev,
+  .swiper_button_next {
+    width: 60px;
+    height: auto;
+  }
+
   .swiper_button_prev img,
   .swiper_button_next  img{
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
 
   .swiper_button_next {
-    margin-left: -10px;
+    margin-left: -1px;
   }  
 
   .product_buy_banner {
@@ -332,9 +344,14 @@
     font-size: 24px;
     line-height: 28px;
   }
+  .similar_products_swiper {
+    padding: 20px 16px 0 16px;
+    height: 480px;
+    width: 100%;
+  }
   
   .similar_products_wrapper {
-    padding-inline: 16px;
+    padding-inline: 0;
     margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;

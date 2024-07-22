@@ -117,7 +117,7 @@
     margin-bottom: 0;
     position: relative;
     overflow: hidden;
-    flex-basis: 80%;
+    flex-basis: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
