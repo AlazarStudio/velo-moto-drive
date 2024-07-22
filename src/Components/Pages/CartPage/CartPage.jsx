@@ -144,6 +144,11 @@ function CartPage({ children, ...props }) {
 		localStorage.setItem('cart', JSON.stringify(updatedCartItems))
 	}
 
+	
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'instant' })
+	}, [])
+
 	return (
 		<main>
 			<CenterBlock>
