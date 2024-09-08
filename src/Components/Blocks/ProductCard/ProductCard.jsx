@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import uploadsConfig from '../../../uploadsConfig'
+
 import styles from './ProductCard.module.css'
 
 function ProductCard({ onClick, ...props }) {
@@ -10,9 +12,9 @@ function ProductCard({ onClick, ...props }) {
 	useEffect(() => {
 		// Проверяем, есть ли текущий товар в корзине при загрузке компонента
 		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-		const isAlreadyInCart = cart.some(item => item.name === props.name)
+		const isAlreadyInCart = cart.some(item => item.id === props.id)
 		setIsAddedToCart(isAlreadyInCart)
-	}, [props.name])
+	}, [props.id])
 
 	const handleAddToCart = e => {
 		e.preventDefault()
@@ -20,7 +22,7 @@ function ProductCard({ onClick, ...props }) {
 
 		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
-		const isAlreadyInCart = cart.some(item => item.name === props.name)
+		const isAlreadyInCart = cart.some(item => item.id === props.id)
 
 		if (!isAlreadyInCart) {
 			const newCart = [...cart, props]
@@ -36,24 +38,24 @@ function ProductCard({ onClick, ...props }) {
 	}
 
 	const handleCartClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate('/shopping-cart');
-  };
+		e.preventDefault()
+		e.stopPropagation()
+		navigate('/shopping-cart')
+	}
 
 	return (
 		<Link
-			to={`/product/${props.linkName}`}
+			to={`/product/${props.id}`}
 			className={styles.card}
 			onClick={handleLinkClick}
 		>
 			<div className={styles.card_img__wrapper}>
-				<img src={props.img[0]} alt='' />
+				<img src={`${uploadsConfig}${props.images[0]}`} alt='' />
 			</div>
 			<div className={styles.card_text__wrapper}>
 				<div className={styles.card_text__item___mark}>
-					<p className={styles.card_text__mark}>{props.category}</p>
-					<p className={styles.card_text__discount}>Скидка: {props.discount}</p>
+					<p className={styles.card_text__mark}>{props.type}</p>
+					<p className={styles.card_text__discount}>Скидка: 18%</p>
 				</div>
 				<div className={styles.card_text__item}>
 					<p className={styles.card_text__main} style={{ fontWeight: '700' }}>
@@ -67,12 +69,21 @@ function ProductCard({ onClick, ...props }) {
 							textDecoration: 'line-through'
 						}}
 					>
-						{props.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽
+						{Math.round(
+							parseFloat(props.priceForSale.toString().replace(/\s/g, '')) *
+								1.18
+						)}
+						 ₽
 					</p>
 				</div>
 				<div className={styles.card_text__item}>
 					<p className={styles.card_text__secondary}>{props.gender}</p>
-					<p className={styles.card_text__main}>{props.currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽</p>
+					<p className={styles.card_text__main}>
+						{props.priceForSale
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+						₽
+					</p>
 				</div>
 			</div>
 			{isAddedToCart ? (

@@ -12,14 +12,14 @@ function CartItem({ onChange, onDelete, isChecked: initialChecked, ...props }) {
     const newChecked = !isChecked;
     setIsChecked(newChecked);
     if (onChange) {
-      onChange(newChecked, props.name, props.currentPrice);
+      onChange(newChecked, props.id, props.priceForSale);
     }
   };
 
   const handleDelete = () => {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     const updatedCart = cartItems.filter(
-      item => item.name !== props.name || item.currentPrice !== props.currentPrice
+      item => item.id !== props.id
     );
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     if (onDelete) {
@@ -50,7 +50,7 @@ function CartItem({ onChange, onDelete, isChecked: initialChecked, ...props }) {
         </div>
       </div>
       <div className={styles.cart_item__price}>
-        <p className={styles.cart_item__info_primary}>{props.currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽</p>
+        <p className={styles.cart_item__info_primary}>{props.priceForSale} ₽</p>
         <p
           className={styles.cart_item__info_secondary}
           style={{
@@ -58,7 +58,7 @@ function CartItem({ onChange, onDelete, isChecked: initialChecked, ...props }) {
             textDecoration: 'line-through'
           }}
         >
-          {props.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽
+          {Math.round(parseFloat(props.priceForSale.replace(/\s/g, '')) * 1.18)} ₽
         </p>
       </div>
     </div>

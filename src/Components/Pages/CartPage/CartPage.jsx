@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 
+import uploadsConfig from '../../../uploadsConfig'
 import CartItem from '../../Blocks/CartItem/CartItem'
 import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
 import WidthBlock from '../../Standart/WidthBlock/WidthBlock'
@@ -31,14 +32,18 @@ function CartPage({ children, ...props }) {
 	const calculateTotals = items => {
 		const newTotalPrice = items.reduce((total, item) => {
 			if (item.isChecked) {
-				return total + parseFloat(item.currentPrice.replace(/\s/g, ''))
+				return (
+					total + parseFloat(item.priceForSale.toString().replace(/\s/g, ''))
+				)
 			}
 			return total
 		}, 0)
 
 		const newOriginalPrice = items.reduce((total, item) => {
 			if (item.isChecked) {
-				return total + parseFloat(item.originalPrice.replace(/\s/g, ''))
+				return (
+					total + Math.round(parseFloat(item.priceForSale.toString().replace(/\s/g, '')) * 1.18)
+				)
 			}
 			return total
 		}, 0)
@@ -47,9 +52,11 @@ function CartPage({ children, ...props }) {
 		setOriginalPrice(newOriginalPrice)
 	}
 
-	const handleCheckboxChange = (isChecked, itemName) => {
+	const handleCheckboxChange = (isChecked, itemId) => {
 		const updatedCartItems = cartItems.map(item =>
-			item.name === itemName ? { ...item, isChecked: isChecked } : item
+			item.id.toString() === itemId.toString()
+				? { ...item, isChecked: isChecked }
+				: item
 		)
 		setCartItems(updatedCartItems)
 		calculateTotals(updatedCartItems)
@@ -93,15 +100,15 @@ function CartPage({ children, ...props }) {
 			.filter(item => item.isChecked)
 			.map(item => ({
 				name: item.name,
-				price: item.currentPrice,
-				type: item.type,
-				category: item.category,
+				price: item.priceForSale,
+				type: item.group.name,
+				category: item.type,
 				color: item.color,
 				gender: item.gender,
 				ageGroup: item.ageGroup,
-				frameGrowth: item.frameGrowth,
+				frameGrowth: item.frameGrouve,
 				speed: item.speed,
-				wheelsSize: item.wheelsSize
+				wheelsSize: item.wheelSize
 			}))
 
 		const payload = {
@@ -144,7 +151,6 @@ function CartPage({ children, ...props }) {
 		localStorage.setItem('cart', JSON.stringify(updatedCartItems))
 	}
 
-	
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'instant' })
 	}, [])
@@ -165,19 +171,20 @@ function CartPage({ children, ...props }) {
 								{cartItems
 									.slice()
 									.reverse()
-									.map((item, index) => (
+									.map((item) => (
 										<CartItem
-											key={index}
+											key={item.id}
+											id={item.id}
 											isChecked={item.isChecked || false}
-											onChange={(isChecked, itemName) =>
-												handleCheckboxChange(isChecked, itemName)
+											onChange={(isChecked, itemId) =>
+												handleCheckboxChange(isChecked, itemId)
 											}
 											onDelete={handleDeleteItem}
-											img={item.img[0]}
+											img={`${uploadsConfig}${item.images[0]}`}
 											name={item.name}
 											gender={item.gender}
-											currentPrice={item.currentPrice}
-											originalPrice={item.originalPrice}
+											priceForSale={formatNumber(item.priceForSale)}
+											// originalPrice={item.priceForSale}
 										/>
 									))}
 							</div>

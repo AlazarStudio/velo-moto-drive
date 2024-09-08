@@ -1,8 +1,10 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { products } from '../../../data'
+import serverConfig from '../../../serverConfig'
 import Filter from '../../Blocks/Filter/Filter'
 import ProductCard from '../../Blocks/ProductCard/ProductCard'
 import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
@@ -12,22 +14,45 @@ import styles from './CatalogPage.module.css'
 
 Modal.setAppElement('#root')
 
+const fetchProducts = async () => {
+	try {
+		const response = await axios.get(`${serverConfig}/items`)
+		return response.data
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return []
+	}
+}
+
 function CatalogPage() {
 	const { id } = useParams()
 	const location = useLocation()
 	const navigate = useNavigate()
+	const [productsDB, setProducts] = useState([])
+	const [groups, setGroups] = useState([])
+
+	useEffect(() => {
+		const getProducts = async () => {
+			const productsDB = await fetchProducts()
+			// console.log(productsDB)
+			setProducts(productsDB)
+		}
+		getProducts()
+	}, [])
 
 	let typeData = id ? id : ''
 	typeData =
-		typeData === 'bike'
+		typeData === 'velosipedy'
 			? 'Велосипеды'
-			: typeData === 'mopeds'
+			: typeData === 'mopedy'
 				? 'Мопеды'
-				: typeData === 'scooters'
+				: typeData === 'samokaty'
 					? 'Самокаты'
-					: typeData === 'atvs'
+					: typeData === 'kvadrotsikly'
 						? 'Квадроциклы'
-						: ''
+						: typeData === 'mototsikly'
+							? 'Мотоциклы'
+							: ''
 
 	const [searchQuery, setSearchQuery] = useState('')
 	const [filterData, setFilterData] = useState({
@@ -36,8 +61,8 @@ function CatalogPage() {
 		type: '',
 		ageGroup: '',
 		gender: '',
-		brakes: '',
-		amor: '',
+		breaks: '',
+		amortization: '',
 		material: '',
 		color: ''
 	})
@@ -71,8 +96,8 @@ function CatalogPage() {
 			type: '',
 			ageGroup: '',
 			gender: '',
-			brakes: '',
-			amor: '',
+			breaks: '',
+			amortization: '',
 			material: '',
 			color: ''
 		})
@@ -96,6 +121,18 @@ function CatalogPage() {
 		}))
 		setCurrentPage(1)
 	}
+
+	useEffect(() => {
+		const fetchGroups = async () => {
+			try {
+				const response = await axios.get(`${serverConfig}/groups`)
+				setGroups(response.data)
+			} catch (error) {
+				console.error('Error fetching groups:', error)
+			}
+		}
+		fetchGroups()
+	}, [])
 
 	const handleVeloTypeClick = type => {
 		setSelectedType(type)
@@ -145,34 +182,40 @@ function CatalogPage() {
 		setCurrentPage(1)
 	}
 
-	const filteredProducts = products.filter(request => {
+	const filteredProducts = productsDB.filter(request => {
 		const speed = parseInt(request.speed, 10)
-		const wheelSize = parseInt(request.wheelsSize, 10)
-		const frameSize = parseInt(request.frameGrowth, 10)
+		const wheelSize = parseInt(request.wheelSize, 10)
+		const frameSize = parseInt(request.frameGrouve, 10)
+
+		// Проверка на количество товара на складе и в магазине
+		const totalQuantity = request.Warehouse.count + request.Store.count
+		if (totalQuantity === 0) {
+			return false
+		}
 
 		const matchesSearchQuery =
 			searchQuery === '' ||
 			request.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			request.gender.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			request.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			request.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			request.group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			request.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			request.frameMaterial.toLowerCase().includes(searchQuery.toLowerCase())
+			request.frame.toLowerCase().includes(searchQuery.toLowerCase())
 
 		return (
 			matchesSearchQuery &&
 			(selectedType === '' ||
-				request.type.toLowerCase().includes(selectedType.toLowerCase())) &&
-			(filterData.type === '' ||
-				request.category
+				request.group.name
 					.toLowerCase()
-					.includes(filterData.type.toLowerCase())) &&
+					.includes(selectedType.toLowerCase())) &&
+			(filterData.type === '' ||
+				request.type.toLowerCase().includes(filterData.type.toLowerCase())) &&
 			(filterData.model === '' ||
 				request.name.toLowerCase().includes(filterData.model.toLowerCase())) &&
-			(filterData.brakes === '' ||
-				request.brakes
+			(filterData.breaks === '' ||
+				request.breaks
 					.toLowerCase()
-					.includes(filterData.brakes.toLowerCase())) &&
+					.includes(filterData.breaks.toLowerCase())) &&
 			(filterData.ageGroup === '' ||
 				request.ageGroup
 					.toLowerCase()
@@ -181,10 +224,12 @@ function CatalogPage() {
 				request.gender
 					.toLowerCase()
 					.includes(filterData.gender.toLowerCase())) &&
-			(filterData.amor === '' ||
-				request.amor.toLowerCase().includes(filterData.amor.toLowerCase())) &&
+			(filterData.amortization === '' ||
+				request.amortization
+					.toLowerCase()
+					.includes(filterData.amortization.toLowerCase())) &&
 			(filterData.material === '' ||
-				request.frameMaterial
+				request.frame
 					.toLowerCase()
 					.includes(filterData.material.toLowerCase())) &&
 			(filterData.color === '' ||
@@ -199,8 +244,8 @@ function CatalogPage() {
 	})
 
 	const sortedProducts = [...filteredProducts].sort((a, b) => {
-		const priceA = a.currentPrice
-		const priceB = b.currentPrice
+		const priceA = a.priceForSale
+		const priceB = b.priceForSale
 		if (sortOrder === 'asc') {
 			return priceA - priceB
 		} else if (sortOrder === 'desc') {
@@ -222,6 +267,74 @@ function CatalogPage() {
 			top: 0,
 			behavior: 'smooth'
 		})
+	}
+
+	const renderPaginationButtons = () => {
+		const buttons = []
+		const totalVisiblePages = 1 // Количество видимых страниц слева и справа от текущей
+
+		if (totalPages <= 5) {
+			// Если страниц 5 или меньше, показываем все страницы
+			return Array.from({ length: totalPages }, (_, index) => (
+				<button
+					key={index + 1}
+					onClick={() => handlePageChange(index + 1)}
+					className={currentPage === index + 1 ? styles.active : ''}
+				>
+					{index + 1}
+				</button>
+			))
+		} else {
+			// Первая страница всегда видна
+			buttons.push(
+				<button
+					key={1}
+					onClick={() => handlePageChange(1)}
+					className={currentPage === 1 ? styles.active : ''}
+				>
+					1
+				</button>
+			)
+
+			// Многоточие после первой страницы, если текущая страница далеко от начала
+			if (currentPage > totalVisiblePages + 2) {
+				buttons.push(<span key='ellipsis-start'>...</span>)
+			}
+
+			// Отображаем страницы вокруг текущей
+			const startPage = Math.max(2, currentPage - totalVisiblePages)
+			const endPage = Math.min(totalPages - 1, currentPage + totalVisiblePages)
+
+			for (let i = startPage; i <= endPage; i++) {
+				buttons.push(
+					<button
+						key={i}
+						onClick={() => handlePageChange(i)}
+						className={currentPage === i ? styles.active : ''}
+					>
+						{i}
+					</button>
+				)
+			}
+
+			// Многоточие перед последней страницей, если текущая страница далеко от конца
+			if (currentPage < totalPages - totalVisiblePages - 1) {
+				buttons.push(<span key='ellipsis-end'>...</span>)
+			}
+
+			// Последняя страница всегда видна
+			buttons.push(
+				<button
+					key={totalPages}
+					onClick={() => handlePageChange(totalPages)}
+					className={currentPage === totalPages ? styles.active : ''}
+				>
+					{totalPages}
+				</button>
+			)
+
+			return buttons
+		}
 	}
 
 	const handleSortOrderChange = e => {
@@ -330,8 +443,8 @@ function CatalogPage() {
 
 					<div className={styles.cards_wrapper}>
 						{paginatedProducts.length > 0 ? (
-							paginatedProducts.map((product, index) => (
-								<ProductCard key={index} {...product} />
+							paginatedProducts.map(product => (
+								<ProductCard key={product.id} {...product} />
 							))
 						) : (
 							<p className={styles.no_results}>
@@ -340,17 +453,7 @@ function CatalogPage() {
 						)}
 					</div>
 
-					<div className={styles.pagination}>
-						{Array.from({ length: totalPages }, (_, index) => (
-							<button
-								key={index}
-								onClick={() => handlePageChange(index + 1)}
-								className={currentPage === index + 1 ? styles.active : ''}
-							>
-								{index + 1}
-							</button>
-						))}
-					</div>
+					<div className={styles.pagination}>{renderPaginationButtons()}</div>
 				</WidthBlock>
 			</CenterBlock>
 		</main>

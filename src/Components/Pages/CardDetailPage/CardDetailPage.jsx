@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Loader from 'react-js-loader'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -7,6 +8,8 @@ import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { products } from '../../../data'
+import serverConfig from '../../../serverConfig'
+import uploadsConfig from '../../../uploadsConfig'
 import CardDetailInfoBlock from '../../Blocks/CardDetailInfoBlock/CardDetailInfoBlock'
 import ProductCard from '../../Blocks/ProductCard/ProductCard'
 import ProductColor from '../../Blocks/ProductColor/ProductColor'
@@ -19,10 +22,51 @@ import Non_Found_Page from '../Non_Found_Page'
 
 import styles from './CardDetailPage.module.css'
 
+const fetchProducts = async id => {
+	try {
+		const response = await axios.get(`${serverConfig}/items/${id}`)
+		return response.data
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return []
+	}
+}
+
+const fetchAllProducts = async () => {
+	try {
+		const response = await axios.get(`${serverConfig}/items`)
+		return response.data
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return []
+	}
+}
+
 function CardDetailPage() {
 	const { id } = useParams()
 
 	const product = products.find(p => p.linkName === id)
+	const [productsDB, setProducts] = useState([])
+	const [productsAllDB, setAllProducts] = useState([])
+
+	useEffect(() => {
+		const getProducts = async () => {
+			const productsDB = await fetchProducts(id)
+			// console.log(productsDB)
+			setProducts(productsDB)
+		}
+		getProducts()
+	}, [])
+
+	useEffect(() => {
+		const getProducts = async () => {
+			const productsAllDB = await fetchAllProducts()
+			// console.log(productsDB)
+			setAllProducts(productsAllDB)
+		}
+		getProducts()
+	}, [])
+
 	const [loading, setLoading] = useState(false)
 	const [isExpanded, setIsExpanded] = useState(false)
 
@@ -33,23 +77,23 @@ function CardDetailPage() {
 	useEffect(() => {
 		// Проверяем, есть ли текущий товар в корзине при загрузке компонента
 		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-		const isAlreadyInCart = cart.some(item => item.name === product.name)
+		const isAlreadyInCart = cart.some(item => item.name === productsDB.name)
 		setIsAddedToCart(isAlreadyInCart)
-	}, [product.name])
+	}, [productsDB.name])
 
 	const handleAddToCartPage = () => {
 		const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
-		const isAlreadyInCart = cart.some(item => item.name === product.name)
+		const isAlreadyInCart = cart.some(item => item.name === productsDB.name)
 
 		if (!isAlreadyInCart) {
-			const newCart = [...cart, product]
+			const newCart = [...cart, productsDB]
 			localStorage.setItem('cart', JSON.stringify(newCart))
 			setIsAddedToCart(true)
 		}
 	}
 
-	if (!product) {
+	if (!productsDB) {
 		return <Non_Found_Page />
 	} else {
 		const [swiper, setSwiper] = useState()
@@ -87,11 +131,14 @@ function CardDetailPage() {
 								className={styles.back_button}
 								// onClick={() => navigate(-1)} // Переход на предыдущую страницу
 							>
-							<Link to='/'>Главная /</Link> <Link to='/catalog'>Каталог /</Link> {product.name}
+								<Link to='/'>Главная /</Link>{' '}
+								<Link to='/catalog'>Каталог /</Link> {productsDB.name}
 							</div>
 							<div className={styles.product_detail_wrapper}>
 								<div className={styles.product_detail_swiper}>
-									<p className={styles.product_detail_title}>{product.name}</p>
+									<p className={styles.product_detail_title}>
+										{productsDB.name}
+									</p>
 									<Swiper
 										className={styles.sliderBox}
 										slidesPerView={1}
@@ -100,9 +147,9 @@ function CardDetailPage() {
 										onSwiper={setSwiper}
 										onSlideChange={swiper => setActiveIndex(swiper.activeIndex)}
 									>
-										{product.img.map((img, index) => (
+										{productsDB.images.map((file, index) => (
 											<SwiperSlide key={index} className={styles.swiper_slide}>
-												<img src={img} alt='' />
+												<img src={`${uploadsConfig}${file}`} alt='' />
 											</SwiperSlide>
 										))}
 									</Swiper>
@@ -124,16 +171,20 @@ function CardDetailPage() {
 									<div className={styles.product_buy_banner}>
 										<div className={styles.product_buy_item}>
 											<p className={styles.discount}>
-												СКИДКА: {product.discount}
+												СКИДКА: 18%{/*{product.discount}*/}
 											</p>
 											<p className={styles.original_price}>
-												{product.originalPrice
-													.toString()
-													.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+												{Math.round(
+													parseFloat(
+														productsDB.priceForSale
+															.toString()
+															.replace(/\s/g, '')
+													) * 1.18
+												)}
 												₽
 											</p>
 											<p className={styles.current_price}>
-												{product.currentPrice
+												{productsDB.priceForSale
 													.toString()
 													.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
 												₽
@@ -159,29 +210,28 @@ function CardDetailPage() {
 								<div className={styles.product_detail_info}>
 									<div className={styles.product_detail__blocks}>
 										<ProductDetailBlock
-											itemName={
-												product.frameMaterial === 'Алюминий' ? 'ALU' : 'ST'
-											}
+											itemName={productsDB.frame === 'Алюминий' ? 'ALU' : 'ST'}
 											itemValue={'рама'}
 										/>
 										<ProductDetailBlock
-											itemName={product.speed}
+											itemName={productsDB.speed}
 											itemValue={'скоростей'}
 										/>
 										<ProductDetailBlock
-											itemName={product.wheelsSize}
+											itemName={productsDB.wheelSize}
 											itemValue={'колеса'}
 										/>
 										<ProductDetailBlock
-											itemName={product.weight}
+											itemName={productsDB.weight}
 											itemValue={'вес, кг'}
 										/>
 									</div>
+									<p style={{fontWeight:'700'}}>Количество: {productsDB.Warehouse.count + productsDB.Store.count} шт</p>
 									<div
 										className={isExpanded ? styles.expanded : styles.collapsed}
 									>
 										<p className={styles.product_description}>
-											{product.description}
+											{productsDB.description}
 										</p>
 										<button
 											className={styles.toggleButton}
@@ -191,7 +241,7 @@ function CardDetailPage() {
 										</button>
 									</div>
 
-									<ProductColor color={product.color.toLowerCase()} />
+									<ProductColor color={productsDB.color.toLowerCase()} />
 									<ProductTechInfo id={id} />
 								</div>
 							</div>
@@ -213,9 +263,9 @@ function CardDetailPage() {
 									}}
 									modules={[Pagination]}
 								>
-									{products
+									{productsAllDB
 										.filter(
-											productFromDb => productFromDb.name !== product.name
+											productFromDb => productFromDb.name !== productsDB.name
 										)
 										.slice(-3)
 										.map((productFromDb, index) => (
