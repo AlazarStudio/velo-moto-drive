@@ -72,7 +72,9 @@ function ProductCard({ onClick, ...props }) {
 						{Math.round(
 							parseFloat(props.priceForSale.toString().replace(/\s/g, '')) *
 								1.18
-						)}
+						)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
 						 ₽
 					</p>
 				</div>

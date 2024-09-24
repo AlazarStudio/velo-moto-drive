@@ -180,7 +180,9 @@ function CardDetailPage() {
 															.toString()
 															.replace(/\s/g, '')
 													) * 1.18
-												)}
+												)
+													.toString()
+													.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
 												₽
 											</p>
 											<p className={styles.current_price}>
@@ -226,7 +228,10 @@ function CardDetailPage() {
 											itemValue={'вес, кг'}
 										/>
 									</div>
-									<p style={{fontWeight:'700'}}>Количество: {productsDB.Warehouse.count + productsDB.Store.count} шт</p>
+									<p style={{ fontWeight: '700' }}>
+										Количество:{' '}
+										{productsDB.Warehouse.count + productsDB.Store.count} шт
+									</p>
 									<div
 										className={isExpanded ? styles.expanded : styles.collapsed}
 									>
