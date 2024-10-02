@@ -1,0 +1,14 @@
+.not_found {
+  font-size: 32px;
+  color: #f77532;
+  font-weight: 700;
+  text-align: center;
+  line-height: 37px;
+}
+
+.not_found__wrapper {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

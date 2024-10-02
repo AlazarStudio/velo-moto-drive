@@ -7,6 +7,7 @@ import DeliveryPage from './Components/Pages/DeliveryPage/DeliveryPage'
 import Main from './Components/Pages/MainPage/MainPage'
 import Non_Found_Page from './Components/Pages/Non_Found_Page'
 import Layout from './Components/Standart/Layout/Layout'
+import NotFoundPage from './Components/Pages/NotFoundPage/NotFoundPage'
 
 function App() {
 	return (
@@ -20,7 +21,7 @@ function App() {
 					<Route path='/delivery' element={<DeliveryPage />} />
 					<Route path='/shopping-cart' element={<CartPage />} />
 					<Route path='/product/:id' element={<CardDetailPage />} />
-					<Route path='*' element={<Non_Found_Page />} />
+					<Route path='*' element={<NotFoundPage />} />
 				</Route>
 			</Routes>
 		</>
