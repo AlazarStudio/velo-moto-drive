@@ -56,7 +56,7 @@ function CardDetailPage() {
 			setProducts(productsDB)
 		}
 		getProducts()
-	}, [])
+	}, [id])
 
 	useEffect(() => {
 		const getProducts = async () => {
@@ -270,12 +270,15 @@ function CardDetailPage() {
 								>
 									{productsAllDB
 										.filter(
-											productFromDb => productFromDb.name !== productsDB.name
+											productFromDb =>
+												(productFromDb.name !== productsDB.name) &
+												(productFromDb.group.name.toLowerCase() ===
+													'велосипеды')
 										)
 										.slice(-3)
-										.map((productFromDb, index) => (
+										.map(productFromDb => (
 											<SwiperSlide
-												key={index}
+												key={productFromDb.id}
 												className={styles.swiper_slide_sm}
 											>
 												<ProductCard

@@ -35,6 +35,7 @@
 }
 
 .card_img__wrapper {
+  height: 270px;
   padding: 22px;
   border-bottom: 1px solid #b4b4b4;
 }
@@ -124,6 +125,10 @@
     gap: 14px;
     background-color: #fff;
     border-radius: 10px;
+  }
+
+  .card_img__wrapper {
+    height: 100%;
   }
 
   .card_text__wrapper {

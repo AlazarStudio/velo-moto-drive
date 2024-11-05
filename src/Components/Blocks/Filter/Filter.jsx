@@ -111,7 +111,6 @@ function Filter({
 		}
 	}, [isDropdownOpen])
 
-
 	const transliterate = text => {
 		if (!text || typeof text !== 'string') {
 			return ''
@@ -194,19 +193,25 @@ function Filter({
 			.replace(/ /g, '_')
 	}
 
+	const filteredProducts = productsDB.filter(
+		item => item.group.name.toLowerCase() === 'велосипеды'
+	)
+
 	return (
 		<div className={styles.filter_wrapper}>
 			<ul className={styles.velo_types}>
-				{groups.map(type => (
-					<Link
-						to={`/catalog/${transliterate(type.name)}`}
-						key={type.id}
-						onClick={() => handleVeloTypeClick(type.name)}
-						className={selectedType === type.name ? styles.selected : ''}
-					>
-						{type.name}
-					</Link>
-				)).reverse()}
+				{groups
+					.map(type => (
+						<Link
+							to={`/catalog/${transliterate(type.name)}`}
+							key={type.id}
+							onClick={() => handleVeloTypeClick(type.name)}
+							className={selectedType === type.name ? styles.selected : ''}
+						>
+							{type.name}
+						</Link>
+					))
+					.reverse()}
 			</ul>
 			<Button
 				to='/catalog'
@@ -236,7 +241,7 @@ function Filter({
 					Модель
 				</option>
 				<option value=''>Все</option>
-				{[...new Set(productsDB.map(product => product.name))].map(
+				{[...new Set(filteredProducts.map(product => product.name))].map(
 					(name, index) => (
 						<option key={index} value={name}>
 							{name}
