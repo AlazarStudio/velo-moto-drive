@@ -17,12 +17,12 @@ function Contacts({ id }) {
 						<Contact
 							img={'/images/contacts_phone.png'}
 							title={'ТЕЛЕФОН'}
-							value={'89383499996'}
+							value={'8-938-349-99-96'}
 						/>
 						<Contact
 							img={'/images/contacts_location.png'}
 							title={'НАШ АДРЕС'}
-							value={'г. Черкесск'}
+							value={'г. Черкесск, проспект Ленина, 330Д'}
 						/>
 						<a
 							href='https://yandex.ru/maps/-/CDGTM6oY'

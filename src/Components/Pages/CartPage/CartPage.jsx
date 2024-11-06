@@ -42,7 +42,10 @@ function CartPage({ children, ...props }) {
 		const newOriginalPrice = items.reduce((total, item) => {
 			if (item.isChecked) {
 				return (
-					total + Math.round(parseFloat(item.priceForSale.toString().replace(/\s/g, '')) * 1.18)
+					total +
+					Math.round(
+						parseFloat(item.priceForSale.toString().replace(/\s/g, '')) * 1.18
+					)
 				)
 			}
 			return total
@@ -155,6 +158,8 @@ function CartPage({ children, ...props }) {
 		window.scrollTo({ top: 0, behavior: 'instant' })
 	}, [])
 
+	const isOrderButtonDisabled = !cartItems.some(item => item.isChecked)
+
 	return (
 		<main>
 			<CenterBlock>
@@ -171,7 +176,7 @@ function CartPage({ children, ...props }) {
 								{cartItems
 									.slice()
 									.reverse()
-									.map((item) => (
+									.map(item => (
 										<CartItem
 											key={item.id}
 											id={item.id}
@@ -211,8 +216,9 @@ function CartPage({ children, ...props }) {
 									className={styles.total_btn}
 									type='button'
 									onClick={handleOrderClick}
+									disabled={isOrderButtonDisabled}
 								>
-									ОФОРМИТЬ ЗАКАЗ
+									{!isOrderButtonDisabled ? 'ОФОРМИТЬ ЗАКАЗ' : 'ВЫБЕРИТЕ ТОВАР'}
 								</button>
 							</div>
 						</div>
@@ -261,10 +267,10 @@ function CartPage({ children, ...props }) {
 						<div className={styles.check_box__wrapper_form}>
 							<input
 								className={styles.checkbox_round_form}
-								required={true}
 								type='checkbox'
 								name=''
 								id=''
+								required
 							/>
 						</div>
 						<p className={styles.check_box__text_form}>

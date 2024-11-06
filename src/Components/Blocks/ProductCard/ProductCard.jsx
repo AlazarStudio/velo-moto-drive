@@ -54,7 +54,10 @@ function ProductCard({ onClick, ...props }) {
 			</div>
 			<div className={styles.card_text__wrapper}>
 				<div className={styles.card_text__item___mark}>
-					<p className={styles.card_text__mark}>{props.type}</p>
+					{props.type ? (
+						<p className={styles.card_text__mark}>{props.type}</p>
+					) : null}
+
 					<p className={styles.card_text__discount}>Скидка: 18%</p>
 				</div>
 				<div className={styles.card_text__item}>

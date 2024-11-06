@@ -200,7 +200,7 @@ function Filter({
 	return (
 		<div className={styles.filter_wrapper}>
 			<ul className={styles.velo_types}>
-				{groups
+				{/* {groups
 					.map(type => (
 						<Link
 							to={`/catalog/${transliterate(type.name)}`}
@@ -211,7 +211,7 @@ function Filter({
 							{type.name}
 						</Link>
 					))
-					.reverse()}
+					.reverse()} */}
 			</ul>
 			<Button
 				to='/catalog'
