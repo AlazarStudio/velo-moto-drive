@@ -30,6 +30,15 @@
   justify-content: space-between;
 }
 
+.phone_btn {
+  padding: 20px 30px;
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
 .map_btn {
   padding: 20px 30px;
   flex-basis: 30%;

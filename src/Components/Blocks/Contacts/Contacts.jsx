@@ -25,7 +25,7 @@ function Contacts({ id }) {
 							value={'г. Черкесск, проспект Ленина, 330Д'}
 						/>
 						<a
-							href='https://yandex.ru/maps/-/CDGTM6oY'
+							href='https://yandex.ru/maps/-/CDtMNGJX'
 							target='_blank'
 							className={styles.map_btn}
 						>

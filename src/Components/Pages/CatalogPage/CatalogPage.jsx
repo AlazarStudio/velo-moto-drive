@@ -361,7 +361,7 @@ function CatalogPage() {
 
 					<div className={styles.search_container}>
 						<input
-							type='text'
+							type='search'
 							placeholder='Поиск...'
 							value={searchQuery}
 							onChange={handleSearchChange}
