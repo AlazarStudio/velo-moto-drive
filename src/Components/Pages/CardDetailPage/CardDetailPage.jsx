@@ -271,7 +271,7 @@ function CardDetailPage() {
 									{productsAllDB
 										.filter(
 											productFromDb =>
-												(productFromDb.name !== productsDB.name) &
+												// (productFromDb.name !== productsDB.name) &
 												(productFromDb.group.name.toLowerCase() ===
 													'велосипеды')
 										)
