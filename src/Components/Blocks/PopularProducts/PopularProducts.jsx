@@ -44,9 +44,9 @@ function PopularProducts() {
 							.map((product, index) => <ProductCard key={index} {...product} />)
 							.reverse()}
 					</div>
-					<div className={styles.popular_products__btn}>
+					{/* <div className={styles.popular_products__btn}>
 						<Button to='/catalog'>СМОТРЕТЬ ВСЕ</Button>
-					</div>
+					</div> */}
 				</WidthBlock>
 			</CenterBlock>
 		</section>
