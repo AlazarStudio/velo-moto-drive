@@ -16,7 +16,7 @@ function Slider() {
 
 	return (
 		<section className={styles.slider_wrapper}>
-			{/* <SliderLinks /> */}
+			<SliderLinks />
 			<div className={styles.swiper_wrapper}>
 				<Swiper
 					className={styles.sliderBox}

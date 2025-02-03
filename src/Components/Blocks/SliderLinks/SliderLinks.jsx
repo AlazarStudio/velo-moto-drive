@@ -105,7 +105,7 @@ function SliderLinks({ children, ...props }) {
 		<ul className={styles.slider_links}>
 			{groups
 				.map(group => (
-					<li>
+					<li key={group.id}>
 						<Link key={group.id} to={`/catalog/${transliterate(group.name)}`}>
 							{group.name}
 						</Link>

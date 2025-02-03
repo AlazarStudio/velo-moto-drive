@@ -13,7 +13,7 @@ function PopularProductsHeader() {
 				</p>
 				<div className={styles.popular_products__btn}>
 					<p className={styles.popular_products__title}>ТОВАРЫ</p>
-					<Button to='/catalog'>СМОТРЕТЬ ВСЕ</Button>
+					<Button to='/catalog/velosipedy?page=1'>СМОТРЕТЬ ВСЕ</Button>
 				</div>
 			</div>
 			<div className={styles.run_img}>

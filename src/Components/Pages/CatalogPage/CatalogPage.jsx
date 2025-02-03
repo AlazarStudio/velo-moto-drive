@@ -67,7 +67,9 @@ function CatalogPage() {
 		color: ''
 	})
 
-	const [selectedType, setSelectedType] = useState(typeData)
+	const [count, setCount] = useState(0)
+
+	const [selectedType, setSelectedType] = useState(typeData || 'Велосипеды')
 	const [selectedColor, setSelectedColor] = useState('')
 	const [sortOrder, setSortOrder] = useState('')
 	const [speedRange, setSpeedRange] = useState([1, 27])
@@ -101,7 +103,7 @@ function CatalogPage() {
 			material: '',
 			color: ''
 		})
-		setSelectedType('')
+		setSelectedType('Велосипеды')
 		setSelectedColor('')
 		setSortOrder('')
 		setSearchQuery('')
@@ -183,15 +185,66 @@ function CatalogPage() {
 	}
 
 	const filteredProducts = productsDB.filter(request => {
+		request.Warehouse.count + request.Store.count
 		const speed = parseInt(request.speed, 10)
 		const wheelSize = parseInt(request.wheelSize, 10)
-		const frameSize = parseInt(request.frameGrouve, 10)
+		const frameSize = Number(request.frameGrouve)
 
 		// Проверка на количество товара на складе и в магазине
 		const totalQuantity = request.Warehouse.count + request.Store.count
+		// setCount(totalQuantity)
 		if (totalQuantity === 0) {
 			return false
 		}
+
+		if (request?.group?.name !== 'Велосипеды') {
+			const matchesSearchQuery =
+				!searchQuery ||
+				(request?.name &&
+					request.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+				(request?.weight &&
+					request.weight.toLowerCase().includes(searchQuery.toLowerCase())) ||
+				(request?.fuelTankCapacity &&
+					request.fuelTankCapacity
+						.toString()
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())) ||
+				(request?.maximumLoad &&
+					request.maximumLoad
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())) ||
+				(request?.color &&
+					request.color.toLowerCase().includes(searchQuery.toLowerCase())) ||
+				(request?.starting &&
+					request.starting.toLowerCase().includes(searchQuery.toLowerCase())) ||
+				(request?.power &&
+					request.power.toLowerCase().includes(searchQuery.toLowerCase())) ||
+				(request?.wheelbase &&
+					request.wheelbase
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())) ||
+				(request?.frontDerailleur &&
+					request.frontDerailleur
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())) ||
+				(request?.backDerailleur &&
+					request.backDerailleur
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())) ||
+				(request?.size &&
+					request.size.toLowerCase().includes(searchQuery.toLowerCase()))
+
+			return (
+				matchesSearchQuery &&
+				(selectedType === '' ||
+					(request?.group?.name &&
+						request.group.name
+							.toLowerCase()
+							.includes(selectedType.toLowerCase())))
+			)
+		}
+
+		// setCount(request.Warehouse.count + request.Store.count);
 
 		const matchesSearchQuery =
 			searchQuery === '' ||
@@ -201,6 +254,11 @@ function CatalogPage() {
 			request.group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			request.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			request.frame.toLowerCase().includes(searchQuery.toLowerCase())
+		// console.log(searchQuery)
+
+		// console.log("frameSize:", frameSize)
+		// console.log("frameSizeRange:", frameSizeRange)
+
 
 		return (
 			matchesSearchQuery &&
@@ -238,8 +296,9 @@ function CatalogPage() {
 			speed <= speedRange[1] &&
 			wheelSize >= wheelSizeRange[0] &&
 			wheelSize <= wheelSizeRange[1] &&
-			frameSize >= frameSizeRange[0] &&
-			frameSize <= frameSizeRange[1]
+			frameSize >= parseFloat(frameSizeRange[0]) &&
+			frameSize <= parseFloat(frameSizeRange[1])
+
 		)
 	})
 
@@ -421,7 +480,7 @@ function CatalogPage() {
 
 					<div className={styles.price}>
 						<p>
-							Количество товаров: <span>{sortedProducts.length}</span>
+							{/* Количество товаров: <span>{sortedProducts.length}</span> */}
 						</p>
 
 						<div className={styles.price_item}>

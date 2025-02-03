@@ -22,10 +22,11 @@ function Contacts({ id }) {
 						<Contact
 							img={'/images/contacts_location.png'}
 							title={'НАШ АДРЕС'}
-							value={'г. Черкесск, проспект Ленина, 330Д'}
+							value={'г. Черкесск, проспект Ленина, 334Г'}
 						/>
 						<a
-							href='https://yandex.ru/maps/-/CDtMNGJX'
+							href='https://yandex.ru/maps/-/CHeOjBn3
+							// '
 							target='_blank'
 							className={styles.map_btn}
 						>

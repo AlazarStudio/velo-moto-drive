@@ -14,6 +14,7 @@ import CardDetailInfoBlock from '../../Blocks/CardDetailInfoBlock/CardDetailInfo
 import ProductCard from '../../Blocks/ProductCard/ProductCard'
 import ProductColor from '../../Blocks/ProductColor/ProductColor'
 import ProductDetailBlock from '../../Blocks/ProductDetailBlock/ProductDetailBlock'
+import ProductMotoTechInfo from '../../Blocks/ProductMotoTechInfo/ProductMotoTechInfo'
 import ProductTechInfo from '../../Blocks/ProductTechInfo/ProductTechInfo'
 import Button from '../../Standart/Button/Button'
 import CenterBlock from '../../Standart/CenterBlock/CenterBlock'
@@ -132,7 +133,8 @@ function CardDetailPage() {
 								// onClick={() => navigate(-1)} // Переход на предыдущую страницу
 							>
 								<Link to='/'>Главная /</Link>{' '}
-								<Link to='/catalog'>Каталог /</Link> {productsDB.name}
+								<Link to='/catalog/velosipedy?page=1'>Каталог /</Link>{' '}
+								{productsDB.name}
 							</div>
 							<div className={styles.product_detail_wrapper}>
 								<div className={styles.product_detail_swiper}>
@@ -210,24 +212,29 @@ function CardDetailPage() {
 									</div>
 								</div>
 								<div className={styles.product_detail_info}>
-									<div className={styles.product_detail__blocks}>
-										<ProductDetailBlock
-											itemName={productsDB.frame === 'Алюминий' ? 'ALU' : 'ST'}
-											itemValue={'рама'}
-										/>
-										<ProductDetailBlock
-											itemName={productsDB.speed}
-											itemValue={'скоростей'}
-										/>
-										<ProductDetailBlock
-											itemName={productsDB.wheelSize}
-											itemValue={'колеса'}
-										/>
-										<ProductDetailBlock
-											itemName={productsDB.weight}
-											itemValue={'вес, кг'}
-										/>
-									</div>
+									{productsDB?.group?.name === 'Велосипеды' ? (
+										<div className={styles.product_detail__blocks}>
+											<ProductDetailBlock
+												itemName={
+													productsDB.frame === 'Алюминий' ? 'ALU' : 'ST'
+												}
+												itemValue={'рама'}
+											/>
+											<ProductDetailBlock
+												itemName={productsDB.speed}
+												itemValue={'скоростей'}
+											/>
+											<ProductDetailBlock
+												itemName={productsDB.wheelSize}
+												itemValue={'колеса'}
+											/>
+											<ProductDetailBlock
+												itemName={productsDB.weight}
+												itemValue={'вес, кг'}
+											/>
+										</div>
+									) : null}
+
 									<p style={{ fontWeight: '700' }}>
 										Количество:{' '}
 										{productsDB.Warehouse.count + productsDB.Store.count} шт
@@ -247,7 +254,11 @@ function CardDetailPage() {
 									</div>
 
 									<ProductColor color={productsDB.color.toLowerCase()} />
-									<ProductTechInfo id={id} />
+									{productsDB?.group?.name === 'Велосипеды' ? (
+										<ProductTechInfo id={id} />
+									) : (
+										<ProductMotoTechInfo id={id} />
+									)}
 								</div>
 							</div>
 							<p className={styles.similar_products_title}>ПОХОЖИЕ ТОВАРЫ</p>
@@ -272,8 +283,7 @@ function CardDetailPage() {
 										.filter(
 											productFromDb =>
 												// (productFromDb.name !== productsDB.name) &
-												(productFromDb.group.name.toLowerCase() ===
-													'велосипеды')
+												productFromDb.group.name.toLowerCase() === productsDB?.group?.name.toLowerCase()
 										)
 										.slice(-3)
 										.map(productFromDb => (
