@@ -185,7 +185,6 @@ function CatalogPage() {
 	}
 
 	const filteredProducts = productsDB.filter(request => {
-		request.Warehouse.count + request.Store.count
 		const speed = parseInt(request.speed, 10)
 		const wheelSize = parseInt(request.wheelSize, 10)
 		const frameSize = Number(request.frameGrouve)
