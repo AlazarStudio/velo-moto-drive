@@ -258,10 +258,10 @@ function CartPage({ children, ...props }) {
 					<input
 						type='email'
 						name='email'
-						placeholder='E-mail*'
+						placeholder='E-mail (необязательно)'
 						value={formData.email}
 						onChange={handleChange}
-						required
+						// required
 					/>
 					<div className={styles.check_box_form}>
 						<div className={styles.check_box__wrapper_form}>
