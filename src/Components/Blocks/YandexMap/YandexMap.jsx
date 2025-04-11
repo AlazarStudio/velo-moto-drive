@@ -13,7 +13,7 @@ function YandexMap({ children, ...props }) {
 			}}
 		>
 			<iframe
-				src='https://yandex.ru/map-widget/v1/?from=mapframe&ll=42.035415%2C44.192941&mode=whatshere&whatshere%5Bpoint%5D=42.035415%2C44.192941&whatshere%5Bzoom%5D=17&z=17'
+				src='https://yandex.ru/map-widget/v1/?ll=42.034787%2C44.192643&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo2Mjk2MjcxNjM0EoIB0KDQvtGB0YHQuNGPLCDQmtCw0YDQsNGH0LDQtdCy0L4t0KfQtdGA0LrQtdGB0YHQutCw0Y8g0KDQtdGB0L_Rg9Cx0LvQuNC60LAsINCn0LXRgNC60LXRgdGB0LosINC_0YDQvtGB0L_QtdC60YIg0JvQtdC90LjQvdCwLCAzMzTQkyIKDaAjKEIVRcUwQg%2C%2C&z=17.13'
 				width='100%'
 				height='100%'
 				allowFullScreen={true}

@@ -17,7 +17,7 @@ function Contacts({ id }) {
 						<Contact
 							img={'/images/contacts_phone.png'}
 							title={'ТЕЛЕФОН'}
-							value={'8-938-349-99-96'}
+							value={'+7-929-241-98-88'}
 						/>
 						<Contact
 							img={'/images/contacts_location.png'}
@@ -25,8 +25,7 @@ function Contacts({ id }) {
 							value={'г. Черкесск, проспект Ленина, 334Г'}
 						/>
 						<a
-							href='https://yandex.ru/maps/-/CHeOjBn3
-							// '
+							href='https://yandex.ru/maps/-/CHVhjMMw'
 							target='_blank'
 							className={styles.map_btn}
 						>
