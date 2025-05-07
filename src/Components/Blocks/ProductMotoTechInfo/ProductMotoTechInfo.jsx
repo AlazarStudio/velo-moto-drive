@@ -37,6 +37,8 @@ function ProductMotoTechInfo({ id }) {
 			<hr color='#b3b3b3' />
 			<CardDetailInfoBlock name='Двигатель' value={productsDB.motor} />
 			<hr color='#b3b3b3' />
+			<CardDetailInfoBlock name='Тип охлаждения' value={productsDB.cooling} />
+			<hr color='#b3b3b3' />
 			<CardDetailInfoBlock name='Масса' value={productsDB.weight} />
 			<hr color='#b3b3b3' />
 			<CardDetailInfoBlock name='Максимальная нагрузка' value={productsDB.maximumLoad} />
