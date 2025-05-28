@@ -39,7 +39,7 @@ function PopularProducts() {
 					<PopularProductsHeader />
 					<div className={styles.cards_wrapper}>
 						{productsDB
-							// .filter(item => item.group.name.toLowerCase() === 'велосипеды')
+							.filter(item => (item.Warehouse.count + item.Store.count) > 0)
 							.slice(-9)
 							.map((product, index) => <ProductCard key={index} {...product} />)
 							.reverse()}
