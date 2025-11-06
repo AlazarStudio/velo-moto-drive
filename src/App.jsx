@@ -8,6 +8,7 @@ import Main from './Components/Pages/MainPage/MainPage'
 import Non_Found_Page from './Components/Pages/Non_Found_Page'
 import Layout from './Components/Standart/Layout/Layout'
 import NotFoundPage from './Components/Pages/NotFoundPage/NotFoundPage'
+import AboutOrganization from './Components/Pages/AboutOrganization/AboutOrganization'
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 					<Route path='/catalog/:id' element={<CatalogPage />} />
 					<Route path='/catalog/:id/page/:page' element={<CatalogPage />} />
 					<Route path='/delivery' element={<DeliveryPage />} />
+					<Route path='/aboutOrganization' element={<AboutOrganization />} />
 					<Route path='/shopping-cart' element={<CartPage />} />
 					<Route path='/product/:id' element={<CardDetailPage />} />
 					<Route path='*' element={<NotFoundPage />} />

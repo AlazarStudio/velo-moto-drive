@@ -2638,3 +2638,53 @@ export const Colors = {
 	'серо-синий': ['#808080', '#0000FF'],
 	'красно-черный': ['#ff0000', '#000000']
 }
+
+export const suppliers = [
+	{
+		id: 1,
+		logo: '/images/logo-white-with-img.svg',
+		name: 'FUEGO RUSSIA',
+		link: 'https://fuego-power.ru/',
+		bgColor: '#000'
+	},
+	{
+		id: 2,
+		logo: '/images/logo-tmbk.png',
+		name: 'TMBK',
+		link: 'https://tmbkmoto.com/'
+	},
+	{
+		id: 3,
+		logo: '/images/sanchez.png',
+		name: 'Sanchez',
+		link: 'https://sanchezmoto.ru/'
+	},
+	{
+		id: 4,
+		logo: '/images/appolino.png',
+		name: 'APOLLINO',
+		link: 'https://www.apollino.ru/',
+		bgColor: '#000'
+	},
+	{
+		id: 6,
+		logo: '/images/progasi.png',
+		name: 'PROGASI',
+		link: 'https://progasi.ru/',
+		bgColor: '#000'
+	},
+	{
+		id: 5,
+		logo: '/images/yacota.png',
+		name: 'Yacota',
+		link: 'https://yacota-moto.com/',
+		// bgColor: '#000'
+	},
+	{
+		id: 7,
+		logo: '/images/motovelo_zavod.png',
+		name: 'ООО "МотоВелоЗавод"',
+		link: 'https://motovelo.by/',
+		bgColor: '#000'
+	},
+]

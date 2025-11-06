@@ -63,6 +63,11 @@ function Burger() {
 						</Link>
 					</li>
 					<li>
+						<Link to='/aboutOrganization' onClick={() => setIsOpen(false)}>
+							<p className={styles.burger_item}>ОБ ОРГАНИЗАЦИИ</p>
+						</Link>
+					</li>
+					<li>
 						<Link to='/?section=about_us' onClick={() => setIsOpen(false)}>
 							<p className={styles.burger_item}>О НАС</p>
 						</Link>

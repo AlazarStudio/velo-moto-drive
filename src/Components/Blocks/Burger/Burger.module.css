@@ -10,7 +10,7 @@
 .nav_list {
   display: flex;
   align-items: center;
-  gap: 110px;
+  gap: 80px;
 }
 
 .burger_item {
@@ -19,6 +19,17 @@
   color: #fff;
   font-weight: 500;
 }
+
+@media (max-width: 1299px) {
+  .nav_list {
+    gap: 20px;
+  }
+
+  .burger_item {
+    font-size: 14px;
+  }
+}
+
 
 /* Адаптивные стили */
 @media (max-width: 768px) { /* Порог для мобильных устройств */
@@ -36,11 +47,12 @@
     position: fixed; /* Закрепленное позиционирование */
     top: 70px;
     left: 0;
-    width: 180px; /* Ширина меню */
+    width: 190px; /* Ширина меню */
     height: fit-content; /* Высота меню на весь экран */
     background-color: #545454; /* Цвет фона меню */
     padding: 20px; /* Отступы внутри меню */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Тень для меню */
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5); /* Тень для меню */
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);  */
     transform: translateX(-100%); /* Изначально скрытое меню */
     transition: transform 0.3s ease; /* Плавное появление и исчезновение меню */
     z-index: 999999; /* На заднем плане */
