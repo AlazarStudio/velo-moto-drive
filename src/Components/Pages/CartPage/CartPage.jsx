@@ -96,56 +96,129 @@ function CartPage({ children, ...props }) {
 		}))
 	}
 
-	const handleSubmit = e => {
-		e.preventDefault()
+	// const handleSubmit = e => {
+	// 	e.preventDefault()
 
-		const selectedItems = cartItems
-			.filter(item => item.isChecked)
-			.map(item => ({
-				name: item.name,
-				price: item.priceForSale,
-				type: item.group.name,
-				category: item.type,
-				color: item.color,
-				gender: item.gender,
-				ageGroup: item.ageGroup,
-				frameGrowth: item.frameGrouve,
-				speed: item.speed,
-				wheelsSize: item.wheelSize
-			}))
+	// 	const selectedItems = cartItems
+	// 		.filter(item => item.isChecked)
+	// 		.map(item => ({
+	// 			name: item.name,
+	// 			price: item.priceForSale,
+	// 			type: item.group.name,
+	// 			category: item.type,
+	// 			color: item.color,
+	// 			gender: item.gender,
+	// 			ageGroup: item.ageGroup,
+	// 			frameGrowth: item.frameGrouve,
+	// 			speed: item.speed,
+	// 			wheelsSize: item.wheelSize
+	// 		}))
 
-		const payload = {
-			...formData,
-			items: selectedItems
-		}
+	// 	const payload = {
+	// 		...formData,
+	// 		items: selectedItems
+	// 	}
 
-		fetch('/mail/mail.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
-		})
-			.then(response => response.json())
-			.then(data => {
-				if (data.success) {
-					setSuccessMessage('Сообщение успешно отправлено!')
-					setFormData({
-						fullName: '',
-						phone: '',
-						email: ''
-					})
-					setIsModalOpen(false)
-					setIsSuccessModalOpen(true)
-					clearSelectedItems()
-				} else {
-					console.error('Произошла ошибка:', data.message)
-				}
-			})
-			.catch(error => {
-				console.error('Произошла ошибка:', error)
-			})
-	}
+	// 	fetch('/mail/mail.php', {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-Type': 'application/json'
+	// 		},
+	// 		body: JSON.stringify(payload)
+	// 	})
+	// 		.then(response => response.json())
+	// 		.then(data => {
+	// 			if (data.success) {
+	// 				setSuccessMessage('Сообщение успешно отправлено!')
+	// 				setFormData({
+	// 					fullName: '',
+	// 					phone: '',
+	// 					email: ''
+	// 				})
+	// 				setIsModalOpen(false)
+	// 				setIsSuccessModalOpen(true)
+	// 				clearSelectedItems()
+	// 			} else {
+	// 				console.error('Произошла ошибка:', data.message)
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('Произошла ошибка:', error)
+	// 		})
+	// }
+
+	const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const selectedItems = cartItems
+    .filter((item) => item.isChecked)
+    .map((item) => ({
+      name: item.name,
+      priceForSale: Number(
+        item.priceForSale.toString().replace(/\s/g, "")
+      ),
+      type: item.group.name,
+      category: item.type,
+      color: item.color,
+      gender: item.gender,
+      ageGroup: item.ageGroup,
+      frameGrowth: item.frameGrouve,
+      speed: item.speed,
+      wheelsSize: item.wheelSize,
+    }));
+
+  const payload = {
+    ...formData,
+    items: selectedItems,
+  };
+
+  try {
+    // 1) письмо как раньше (можно оставить без изменений)
+    // await fetch("/mail/mail.php", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(payload),
+    // });
+
+    // 2) создаём платёж на backend.velomotodrive-kchr.ru
+const resp = await fetch("https://backend.velomotodrive-kchr.ru/api/payments/create-payment", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+let data = null;
+try {
+  data = await resp.json();
+	clearSelectedItems()
+} catch (e) {
+  console.error("Не удалось разобрать JSON ответа:", e);
+}
+
+if (!resp.ok || !data?.formUrl) {
+  console.error(
+    "Ошибка при создании платежа:",
+    resp.status,
+    data
+  );
+  return;
+}
+
+window.location.href = data.formUrl;
+
+
+    if (!resp.ok || !data.formUrl) {
+      console.error("Ошибка при создании платежа:", data);
+      return;
+    }
+
+    // 3) уводим на платёжную страницу Альфы
+    window.location.href = data.formUrl;
+  } catch (err) {
+    console.error("Ошибка при оформлении заказа:", err);
+  }
+};
+
 
 	const clearSelectedItems = () => {
 		const updatedCartItems = cartItems.filter(item => !item.isChecked)
