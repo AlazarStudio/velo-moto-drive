@@ -174,39 +174,35 @@ function CartPage({ children, ...props }) {
 
   try {
     // 1) письмо как раньше (можно оставить без изменений)
-    // await fetch("/mail/mail.php", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(payload),
-    // });
+    await fetch("/mail/mail.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
     // 2) создаём платёж на backend.velomotodrive-kchr.ru
-const resp = await fetch("https://backend.velomotodrive-kchr.ru/api/payments/create-payment", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
+		const resp = await fetch("https://backend.velomotodrive-kchr.ru/api/payments/create-payment", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(payload),
+		});
 
-let data = null;
-try {
-  data = await resp.json();
-	clearSelectedItems()
-} catch (e) {
-  console.error("Не удалось разобрать JSON ответа:", e);
-}
+		let data = null;
+		try {
+			data = await resp.json();
+			clearSelectedItems()
+		} catch (e) {
+			console.error("Не удалось разобрать JSON ответа:", e);
+		}
 
-if (!resp.ok || !data?.formUrl) {
-  console.error(
-    "Ошибка при создании платежа:",
-    resp.status,
-    data
-  );
-  return;
-}
-
-window.location.href = data.formUrl;
-
-
+		if (!resp.ok || !data?.formUrl) {
+			console.error(
+				"Ошибка при создании платежа:",
+				resp.status,
+				data
+			);
+			return;
+		}
     if (!resp.ok || !data.formUrl) {
       console.error("Ошибка при создании платежа:", data);
       return;
