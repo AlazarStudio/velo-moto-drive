@@ -33,7 +33,8 @@ function AboutOrganization({ children, ...props }) {
 								<br />
 								тел. +7-929-241-98-88
 								<br />
-								E-mail: zolotoye.runo09@mail.ru
+								E-mail:  zakaz.velo09@mail.ru
+								{/* E-mail: zolotoye.runo09@mail.ru */}
 								<br />
 								<br />
 								ОГРН 1220900004247
